@@ -1,6 +1,7 @@
 # TROMMEL
 
-TROMMEL sifts through directories of files to identify indicators that may contain vulnerabilities. Specifically, TROMMEL identifies the following indicators related to: 
+TROMMEL sifts through directories of files to identify indicators that may contain vulnerabilities. 
+Specifically, TROMMEL identifies the following indicators related to: 
 * Secure Shell (SSH) key files
 * Secure Socket Layer (SSL) key files
 * Internet Protocol (IP) addresses
@@ -18,8 +19,8 @@ TROMMEL sifts through directories of files to identify indicators that may conta
 TROMMEL has also integrated vFeed which allows for further in-depth vulnerability analysis of identified indicators.
 
 ## Dependencies
-* Python-Magic - https://pypi.python.org/pypi/python-magic
-* vFeed Database - https://vfeed.io/pricing/ - For non-commercial, use register and download the Community Edition database
+* [Python-Magic](https://pypi.python.org/pypi/python-magic)
+* [vFeed Database](https://vfeed.io/pricing/) - For non-commercial, use register and download the Community Edition database
 
 
 ## Usage
@@ -34,6 +35,6 @@ $ trommel.py -p /directory -o output_file
 
 ## References
 
-* vFeed - https://vfeed.io/ 
-* Firmwalker - https://github.com/craigz28/firmwalker 
-* Lua Code: Security Overview and Practical Approaches to Static Analysis by Andrei Costin - http://firmware.re/lua/
+* [vFeed](https://vfeed.io/)
+* [Firmwalker](https://github.com/craigz28/firmwalker)
+* [Lua Code: Security Overview and Practical Approaches to Static Analysis by Andrei Costin](http://firmware.re/lua/)
