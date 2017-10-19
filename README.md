@@ -35,8 +35,8 @@ $ trommel.py -p /directory -o output_file
 ```
 
 ## Notes
-TROMMEL has been tested using Python 2.7 on macOS Sierra and Kali Linux x86_64
-
+TROMMEL has been tested using Python 2.7 on macOS Sierra and Kali Linux x86_64. <br />
+TROMMEL was written with the intent to help with identifying indicators that may contain vulnerabilities found in firmware of embedded devices.
 
 ## References
 
