@@ -1,7 +1,8 @@
 # TROMMEL
 
-TROMMEL sifts through directories of files to identify indicators that may contain vulnerabilities. 
-Specifically, TROMMEL identifies the following indicators related to: 
+TROMMEL sifts through directories of files to identify indicators that may contain vulnerabilities. <br />
+
+TROMMEL identifies the following indicators related to: 
 * Secure Shell (SSH) key files
 * Secure Socket Layer (SSL) key files
 * Internet Protocol (IP) addresses
