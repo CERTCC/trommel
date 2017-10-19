@@ -27,7 +27,7 @@ TROMMEL has also integrated vFeed which allows for further in-depth vulnerabilit
 $ trommel.py --help
 ```
 
-Output TROMMEL results to a file
+Output TROMMEL results to a file based on a given directory of files
 ```
 $ trommel.py -p /directory -o output_file
 ```
