@@ -19,7 +19,7 @@ TROMMEL has also integrated vFeed which allows for further in-depth vulnerabilit
 
 ## Dependencies
 * Python-Magic - https://pypi.python.org/pypi/python-magic
-* [vFeed Database] (https://vfeed.io/pricing/) - For non-commercial use register and download the Community Edition database
+* vFeed Database - https://vfeed.io/pricing/ - For non-commercial, use register and download the Community Edition database
 
 
 ## Usage
@@ -34,6 +34,6 @@ $ trommel.py -p /directory -o output_file
 
 ## References
 
-[vFeed] (https://vfeed.io/) 
-[Firmwalker] (https://github.com/craigz28/firmwalker)
-[Lua Code: Security Overview and Practical Approaches to Static Analysis by Andrei Costin] (http://firmware.re/lua/)
+* vFeed - https://vfeed.io/ 
+* Firmwalker - https://github.com/craigz28/firmwalker 
+* Lua Code: Security Overview and Practical Approaches to Static Analysis by Andrei Costin - http://firmware.re/lua/
