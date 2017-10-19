@@ -17,7 +17,10 @@ TROMMEL identifies the following indicators related to:
 * web application scripting variables, and 
 * Android application package (APK) file permissions. 
 
-TROMMEL has also integrated [vFeed](https://vfeed.io/) which allows for further in-depth vulnerability analysis of identified indicators.
+TROMMEL has also integrated [vFeed](https://vfeed.io/) which allows for further in-depth vulnerability analysis of identified indicators. <br />
+
+TROMMEL was written with the intent to help with identifying indicators that may contain vulnerabilities found in firmware of embedded devices.
+
 
 ## Dependencies
 * [Python-Magic](https://pypi.python.org/pypi/python-magic)
@@ -35,8 +38,7 @@ $ trommel.py -p /directory -o output_file
 ```
 
 ## Notes
-TROMMEL has been tested using Python 2.7 on macOS Sierra and Kali Linux x86_64. <br />
-TROMMEL was written with the intent to help with identifying indicators that may contain vulnerabilities found in firmware of embedded devices.
+TROMMEL has been tested using Python 2.7 on macOS Sierra and Kali Linux x86_64.
 
 ## References
 
