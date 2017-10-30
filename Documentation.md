@@ -1,29 +1,4 @@
 # TROMMEL Documentation
-
-* Download TROMMEL
-* Download vFeed database from vFeed tool from https://vfeed.io/pricing/. 
-	* This database needs to be placed in the root of the working directory of TROMMEL.
-
-# Handling Dependencies
-* The vFeed database is addressed above.
-* Python-magic
-	* For Linux:
-		* pip install python-magic
-	* For Mac:
-		* brew install libmagic
-		* pip install python-magic
-
-# Usage
-
-```
-$ trommel.py --help
-```
-
-Output TROMMEL results to a file based on a given directory
-```
-$ trommel.py -p /directory -o output_file
-```
-
 * TROMMEL sifts through directories of files to identify indicators that may contain vulnerabilities. Specifically, TROMMEL identifies the following indicators: 
 	* Secure Shell (SSH) key files
 	* Secure Socket Layer (SSL) key files
@@ -52,3 +27,24 @@ $ trommel.py -p /directory -o output_file
 	* There are [Count of Files] total files within the directory.
 	* Results could be vulnerabilities. These results should be verified as false positives may exist.
 * The indicators should be reviewed to identify and remove false positives and to identify indicators that need further analysis for potential vulnerabilities. 
+
+# Handling Dependencies
+* Download TROMMEL
+* Download vFeed database from vFeed tool from https://vfeed.io/pricing/. 
+	* This database needs to be placed in the root of the working directory of TROMMEL.
+* Python-magic
+	* For Linux:
+		* pip install python-magic
+	* For Mac:
+		* brew install libmagic
+		* pip install python-magic
+
+# Usage
+```
+$ trommel.py --help
+```
+
+Output TROMMEL results to a file based on a given directory
+```
+$ trommel.py -p /directory -o output_file
+```
