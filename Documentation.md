@@ -48,3 +48,15 @@ Output TROMMEL results to a file based on a given directory
 ```
 $ trommel.py -p /directory -o output_file
 ```
+
+# Suggested usage:
+* Once TROMMEL is installed, down a firmware binary
+* When applicable, extract file system using [binwalk](https://github.com/devttys0/binwalk)
+* Run TROMMEL on the extracted firmware file system
+* Review TROMMEL output file for potential vulnerabilities in the firmware
+
+
+
+
+
+
