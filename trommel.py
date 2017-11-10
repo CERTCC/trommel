@@ -28,9 +28,9 @@ def read_search_kw(file, keyword):
 			hits = re.findall(keyword, text, re.I)
 			if hits:
 				magic_mime = magic.from_file(file, mime=True)
-				magic_hit = re.search(r'x-executable|x-sharedlib|x-binary', magic_mime, re.I)
+				magic_hit = re.search(r'x-executable|x-sharedlib|x-binary|LSB executable|LSB shared object|archive data|GNU message catalog|tar archive|gzip compressed data', magic_mime, re.I)
 				if magic_hit:
-					trommel_output.write("Found a binary file that contains keyword '%s': %s : Number of occurences in file: %d\n" % (keyword, file, len(hits)))
+					trommel_output.write("Found a non-plain text file that contains keyword '%s': %s : Number of occurences in file: %d\n" % (keyword, file, len(hits)))
 				else:
 					trommel_output.write("Found a plain text file that contains keyword '%s': %s : Number of occurences in file: %d\n" % (keyword, file, len(hits)))
 
@@ -45,9 +45,9 @@ def read_search_case_kw(file, keyword):
 			hits = re.findall(keyword, text)
 			if hits:
 				magic_mime = magic.from_file(file, mime=True)
-				magic_hit = re.search(r'x-executable|x-sharedlib|x-binary', magic_mime, re.I)
+				magic_hit = re.search(r'x-executable|x-sharedlib|x-binary|LSB executable|LSB shared object|archive data|GNU message catalog|tar archive|gzip compressed data', magic_mime, re.I)
 				if magic_hit:
-					trommel_output.write("Found a binary file that contains keyword '%s': %s : Number of occurences in file: %d\n" % (keyword, file, len(hits)))
+					trommel_output.write("Found a non-plain text that contains keyword '%s': %s : Number of occurences in file: %d\n" % (keyword, file, len(hits)))
 				else:
 					trommel_output.write("Found a plain text file that contains keyword '%s': %s : Number of occurences in file: %d\n" % (keyword, file, len(hits)))
 	except IOError:
