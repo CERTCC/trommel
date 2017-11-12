@@ -3,6 +3,8 @@ import magic
 import re
 import os
 
+from indicator_config import *
+
 #Imports from vFeed
 from lib.core.methods import *
 from lib.core.search import Search
@@ -112,13 +114,11 @@ def text_search(search_term, trommel_output):
 
 	
 
-#Main function for indicator searching	
+#Main function		
 def kw(ff, trommel_output, names):
 	
 
 	#Search key or password related files & keywords
-	passwd = 'passwd'; shadow = 'shadow'; psk_hits = ".psk"; key_pass = "kdb"; k_wallet = "kwallet"; open_vpn = "ovpn"; pgp_log = "pgplog"; pgp_policy = "pgppolicy.xml"; pgp_prefs = "pgpprefs.xml"; \
-	priv_kw = "private"; secret_kw = "secret"; javaks = ".jks"; sftpconfig = "sftp-config"; bitcoinfile = "wallet.dat"; pwd_safe = ".psafe3"
 	if passwd in ff:
 		trommel_output.write("Found a passwd file: %s\n" % ff)
 	if shadow in ff:
@@ -152,7 +152,6 @@ def kw(ff, trommel_output, names):
 
 
 	#Search for SSH related files
-	auth_key_file = 'authorized_keys'; host_key_file = "host_key"; id_rsa_file = 'id_rsa'; id_dsa_file = 'id_dsa'; dotPub = ".pub"; id_ecdsa_file = "id_ecdsa"; id_ed25519_file="id_ed25519"
 	if auth_key_file in ff:
 		trommel_output.write("Found an authorized_keys file: %s\n" % ff)
 	if host_key_file in ff:
@@ -175,7 +174,6 @@ def kw(ff, trommel_output, names):
 	read_search_kw(ff, id_ed25519_file, trommel_output)
 
 	#Search for SSL related files - filenames: *.pem, *.crt, *.cer, *.p7b, *.p12, *.key
-	pem = '.pem'; crt = '.crt'; cer = ".cer"; p7b = '.p7b'; p12 = '.p12'; dotKey = ".key"; p15 =".p15"
 	if pem in ff:
 		trommel_output.write("Found a SSL related .pem file: %s\n" % ff)
 	if crt in ff:
@@ -193,22 +191,7 @@ def kw(ff, trommel_output, names):
 
 
 	#Search for keyword of interest within files
-	upgrade_kw = "upgrade"
-	admin_kw = "admin"
-	root_kw = "root"
-	password_kw = "password"
-	passwd_kw = "passwd"
-	pwd_kw = "pwd"
-	dropbear_kw = "dropbear"
-	ssl_kw = "ssl"
-	telnet_kw = "telnet"
-	crypt_kw = "crypt"
-	auth_kw = "authentication"
-	sql_kw = "sql"
-	passphrase_kw = "passphrase"
-	rsa_key_pair = "rsakeypair"
-	secretkey_kw = "secretkey"
-	ssh_hot_keys = "sshhostkeys"
+
 	read_search_kw(ff, upgrade_kw, trommel_output)
 	read_search_kw(ff, admin_kw, trommel_output)
 	read_search_kw(ff, root_kw, trommel_output)
@@ -228,11 +211,7 @@ def kw(ff, trommel_output, names):
 
 
 	#Search for keywords "private key", IP addresses, URLs, and email addresses
-	private_key_kw = "private.*key"
-	ipaddr = '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
-	urls = "(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,8}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,8}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,8}|www\.[a-zA-Z0-9]\.[^\s]{2,8})"
-	email = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"				
-	secret_key_kw = "secret.*key"
+
 	try:
 		with open (ff, 'r') as privkey_keyword:
 			text = privkey_keyword.read()
@@ -285,16 +264,11 @@ def kw(ff, trommel_output, names):
 		trommel_output.write("The following file is in the /opt directory: %s\n" % ff)
 
 	#Search for shell script files with .sh extension
-	shell_script = ".sh"
 	if shell_script in ff:
 		trommel_output.write("The following shell script was found: %s\n" % ff)
 
 
 	#Search for web server binaries - apache, lighttpd, alphapd, httpd
-	apache_bin = "apache"
-	lighttpd_bin = "lighttpd"
-	alphapd_bin = "alphapd"
-	httpd_bin = "httpd"
 	if apache_bin in ff:
 		trommel_output.write("Found an apache binary file: %s\n" % ff)
 	if lighttpd_bin in ff:
@@ -305,9 +279,6 @@ def kw(ff, trommel_output, names):
 		trommel_output.write("Found a httpd binary file: %s\n" % ff)
 
 	#Search for config files with these extensions *.conf, *.cfg, *.ini
-	config_1 = ".conf"
-	config_2 = ".cfg"
-	config_3 = ".ini"
 	if config_1 in ff:
 		trommel_output.write("Found a .conf configuration file: %s\n" % ff)
 	if config_2 in ff:
@@ -316,9 +287,6 @@ def kw(ff, trommel_output, names):
 		trommel_output.write("Found a .ini configuration file: %s\n" % ff)
 
 	#Search for database files with these extensions *.db and *.sqlite
-	db_file = ".db"
-	sqlite_file = ".sqlite"
-	sql_file = ".sql"
 	if db_file in ff:
 		trommel_output.write("Found a .db file: %s\n" % ff)
 	if sqlite_file in ff:
@@ -327,18 +295,6 @@ def kw(ff, trommel_output, names):
 		trommel_output.write("Found a .sql file: %s\n" % ff)
 
 	#Search for binary files of interest
-	ssh_bin = "ssh"
-	sshd_bin = "sshd"
-	scp_bin = "scp"
-	sftp_bin = "sftp"
-	tftp_bin = "tftp"
-	dropbear_bin = "dropbear"
-	busybox_bin = "busybox"
-	telnet_bin = "telnet"
-	telnetd_bin = "telnetd"
-	openssl_bin = "openssl"
-	other_bins = ".bin$"
-
 	if ssh_bin in ff:
 		trommel_output.write("Found a ssh binary file: %s\n" % ff)
 	if sshd_bin in ff:
@@ -365,15 +321,7 @@ def kw(ff, trommel_output, names):
 
 	#WebApp specific - PHP, Javascript, VBScript, Lua
 	#PHP untrusted user input functions
-	php_fn = ".php"
 	if php_fn in ff:
-		php_server_func = "\$_SERVER"
-		php_get_func = "\$_GET"
-		php_post_func = "\$_POST"
-		php_request_func = "\$_REQUEST"
-		php_files_func = "\$_FILES"
-		php_cookie_func = "\$_COOKIE"
-		php_split_kw = "split"
 		read_search_case_kw(ff, php_server_func, trommel_output)
 		read_search_case_kw(ff, php_get_func, trommel_output)
 		read_search_case_kw(ff, php_post_func, trommel_output)
@@ -383,41 +331,17 @@ def kw(ff, trommel_output, names):
 		read_search_case_kw(ff, php_split_kw, trommel_output)
 
 		#PHP SQL related results
-		php_sql_com1 = "SELECT"
-		php_sql_com2 = "FROM"
-		php_sql_com3 = "WHERE"
 		read_search_case_kw(ff, php_sql_com1, trommel_output)
 		read_search_case_kw(ff, php_sql_com2, trommel_output)
 		read_search_case_kw(ff, php_sql_com3, trommel_output)
 
 		#PHP shell injection function.
-		php_shellexec_func = "shell_exec"
-		php_exec_func = "exec"
-		php_passthru_func = "passthru"
-		php_system_func = "system"
 		read_search_kw(ff, php_shellexec_func, trommel_output)
 		read_search_kw(ff, php_exec_func, trommel_output)
 		read_search_kw(ff, php_passthru_func, trommel_output)
 		read_search_kw(ff, php_system_func, trommel_output)
 
 	#Javascript	functions of interest
-	alert_kw = "script.*alert.*script"
-	src_kw = "src="
-	script_kw = "script%3e"
-	script1_kw = "script\x3e"
-	doc_url_kw = "document.URL"
-	doc_loc_kw = "document.location"
-	doc_referrer_kw = "document.referrer"
-	win_loc_kw = "window.location"
-	doc_cookies_kw = "document.cookies"
-	eval_kw = "eval"
-	settimeout_kw = "setTimeout"
-	setinterval_kw = "setInterval"
-	loc_assign_kw = "location.assign"
-	nav_referrer_kw = "navigation.referrer"
-	win_name_kw = "window.name"
-
-	script_word = "script"
 	try:
 		with open (ff, 'r') as js_file:
 			text = js_file.read()
@@ -442,37 +366,10 @@ def kw(ff, trommel_output, names):
 		pass
 
 	#VBScript presence
-	vbscript_kw = "vbscript"
 	read_search_kw(ff, vbscript_kw, trommel_output)
 
 	#Lua script functions of interest
-	lua_fn = ".lua"
 	if lua_fn in ff:
-		lua_get = "_GET\["
-		lua_cgi_query = "cgilua.QUERY."
-		lua_cgi_post = "cgilua.POST."
-		lua_print = "print"
-		lua_iowrite = "io.write"
-		lua_ioopen = "io.open"
-		lua_cgi_put = "cgilua.put"
-		lua_cgi_handhelp = "cgilua.handlelp"
-		lua_execute = "execute"
-		lua_strcat = "strcat"
-		lua_htmlentities = "htmlentities"
-		lua_htmlspecialchars = "htmlspecialchars"
-		lua_htmlescape = "htmlescape"
-		lua_htmlentitydecode = "html_entity_decode"
-		lua_htmlunescape = "htmlunescape"
-		lua_iopopen = "io.popen"
-		lua_escapeshellarg = "escapeshellarg"
-		lua_unescapeshellarg = "unescapeshellarg"
-		lua_escapeshellcmd = "escapeshellcmd"
-		lua_unescapeshellcmd = "unescapeshellcmd"
-		lua_fhupo = "fake_htmlunescape_print_popen\("
-		lua_fhpo = "fake_htmlescape_print_popen\("
-		lua_fsppo = "fake_strcat_print_popen\("
-		lua_ntopreaddir = "ntop.readdir\("
-
 		read_search_lua_kw(ff, lua_get, trommel_output)
 		read_search_lua_kw(ff, lua_cgi_query, trommel_output)
 		read_search_lua_kw(ff, lua_cgi_post, trommel_output)
@@ -500,7 +397,6 @@ def kw(ff, trommel_output, names):
 
 
 	#Search library base name against CVE Community Edition Database
-	lib_file = ".so"
 	if lib_file in ff:
 		base_name = re.search(r'lib[a-zA-Z]{1,20}', names, re.S)
 		if base_name is not None:
@@ -511,7 +407,6 @@ def kw(ff, trommel_output, names):
 
 	#Search specific content related decompress and decompiled Android APKs
 	#APK App permisssion					
-	perm = 'android\.permission\.[A-Z_]{1,50}'
 	try:
 		with open (ff, 'r') as file:
 			text = file.read()
@@ -522,7 +417,6 @@ def kw(ff, trommel_output, names):
 		pass
 
 	#APK App package name
-	pkg_name = 'package="(.*?)"'
 	try:
 		with open (ff, 'r') as file:
 			text = file.read()
