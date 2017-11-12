@@ -267,7 +267,6 @@ def kw(ff, trommel_output, names):
 	if shell_script in ff:
 		trommel_output.write("The following shell script was found: %s\n" % ff)
 
-
 	#Search for web server binaries - apache, lighttpd, alphapd, httpd
 	if apache_bin in ff:
 		trommel_output.write("Found an apache binary file: %s\n" % ff)
