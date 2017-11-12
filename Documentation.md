@@ -50,6 +50,7 @@ $ trommel.py -p /directory -o output_file
 ```
 
 # Suggested usage:
+* The intended use of TROMMEL is to assist researchers during firmware analysis.
 * Once TROMMEL is installed, down a firmware binary
 * When applicable, extract file system using [binwalk](https://github.com/devttys0/binwalk)
 * Run TROMMEL on the extracted firmware file system
