@@ -112,7 +112,7 @@ def text_search(search_term, trommel_output):
 
 	
 
-#Main function		
+#Main function for indicator searching	
 def kw(ff, trommel_output, names):
 	
 
