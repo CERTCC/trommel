@@ -259,7 +259,7 @@ def kw(ff, trommel_output, names):
 
 
 	#Search for files in /opt directory. This directory sometimes has specific files put there by the vendor. 
-	opt_dir_kw = "/opt"
+	
 	if opt_dir_kw in ff:
 		trommel_output.write("The following file is in the /opt directory: %s\n" % ff)
 

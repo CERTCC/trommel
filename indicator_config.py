@@ -55,6 +55,8 @@ secret_key_kw = "secret.*key"
 
 shell_script = ".sh"
 
+opt_dir_kw = "/opt"
+
 apache_bin = "apache"
 lighttpd_bin = "lighttpd"
 alphapd_bin = "alphapd"
