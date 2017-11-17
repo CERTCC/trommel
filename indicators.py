@@ -9,6 +9,7 @@ from indicator_config import *
 from lib.core.methods import *
 from lib.core.search import Search
 
+
 #Function to search for keywords in file. Writes keyword, file name, number hits in file
 def read_search_kw(ff, keyword, trommel_output):
 	try:
@@ -18,7 +19,7 @@ def read_search_kw(ff, keyword, trommel_output):
 			hits = re.findall(keyword, text, re.I)
 			if hits:
 				magic_mime = magic.from_file(ff, mime=True)
-				magic_hit = re.search(r'x-executable|x-sharedlib|x-binary|LSB executable|LSB shared object|archive data|GNU message catalog|tar archive|gzip compressed data', magic_mime, re.I)
+				magic_hit = re.search(mime_kw, magic_mime, re.I)
 				if magic_hit:
 					trommel_output.write("Found a non-plain text file that contains keyword '%s': %s : Number of occurences in file: %d\n" % (keyword, ff, len(hits)))
 				else:
@@ -35,7 +36,7 @@ def read_search_case_kw(ff, keyword, trommel_output):
 			hits = re.findall(keyword, text)
 			if hits:
 				magic_mime = magic.from_file(ff, mime=True)
-				magic_hit = re.search(r'x-executable|x-sharedlib|x-binary|LSB executable|LSB shared object|archive data|GNU message catalog|tar archive|gzip compressed data', magic_mime, re.I)
+				magic_hit = re.search(mime_kw, magic_mime, re.I)
 				if magic_hit:
 					trommel_output.write("Found a non-plain text that contains keyword '%s': %s : Number of occurences in file: %d\n" % (keyword, ff, len(hits)))
 				else:
@@ -259,13 +260,14 @@ def kw(ff, trommel_output, names):
 
 
 	#Search for files in /opt directory. This directory sometimes has specific files put there by the vendor. 
-	
+	opt_dir_kw = "/opt"
 	if opt_dir_kw in ff:
 		trommel_output.write("The following file is in the /opt directory: %s\n" % ff)
 
 	#Search for shell script files with .sh extension
 	if shell_script in ff:
 		trommel_output.write("The following shell script was found: %s\n" % ff)
+
 
 	#Search for web server binaries - apache, lighttpd, alphapd, httpd
 	if apache_bin in ff:
