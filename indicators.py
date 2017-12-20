@@ -9,11 +9,9 @@ from indicator_config import *
 from lib.core.methods import *
 from lib.core.search import Search
 
-
 #Function to search for keywords in file. Writes keyword, file name, number hits in file
 def read_search_kw(ff, keyword, trommel_output):
 	try:
-
 		with open (ff, 'r') as keyword_search:
 			text = keyword_search.read()
 			hits = re.findall(keyword, text, re.I)
@@ -21,16 +19,18 @@ def read_search_kw(ff, keyword, trommel_output):
 				magic_mime = magic.from_file(ff, mime=True)
 				magic_hit = re.search(mime_kw, magic_mime, re.I)
 				if magic_hit:
-					trommel_output.write("Non-Plain Text File, Keyword: '%s', File: %s, Keyword Hits in File: %d\n" % (keyword, ff, len(hits)))
+					offset_list = []
+					for m in re.finditer(keyword, text, re.I):
+						offset_list.append(m.start())
+					trommel_output.write("Non-Plain Text File, Keyword: '%s', File: %s, Offset(s) in File: " % (keyword, ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
 				else:
 					trommel_output.write("Plain Text File, Keyword: '%s', File: %s, Keyword Hits in File: %d\n" % (keyword, ff, len(hits)))
-
 	except IOError:
 		pass
 
 #Function to search for keywords in file (case sensitive). Writes keyword, file name, number hits in file
 def read_search_case_kw(ff, keyword, trommel_output):
-	try:
+	try:	
 		with open (ff, 'r') as keyword_search:
 			text = keyword_search.read()
 			hits = re.findall(keyword, text)
@@ -38,7 +38,10 @@ def read_search_case_kw(ff, keyword, trommel_output):
 				magic_mime = magic.from_file(ff, mime=True)
 				magic_hit = re.search(mime_kw, magic_mime, re.I)
 				if magic_hit:
-					trommel_output.write("Non-Plain Text File, Keyword: '%s', File: %s, Keyword Hits in File: %d\n" % (keyword, ff, len(hits)))
+					offset_list = []
+					for m in re.finditer(keyword, text):
+						offset_list.append(m.start())
+					trommel_output.write("Non-Plain Text File, Keyword: '%s', File: %s, Offset(s) in File: " % (keyword, ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
 				else:
 					trommel_output.write("Plain Text File, Keyword: '%s', File: %s, Keyword Hits in File: %d\n" % (keyword, ff, len(hits)))
 	except IOError:
@@ -205,7 +208,10 @@ def kw(ff, trommel_output, names):
 				magic_mime = magic.from_file(ff, mime=True)
 				magic_hit = re.search(mime_kw, magic_mime, re.I)
 				if magic_hit:
-					trommel_output.write("Non-Plain Text File, Keyword Variation: 'private key', File: %s, Keyword Hits in File: %d\n" % (ff, len(hits)))
+					offset_list = []
+					for m in re.finditer(private_key_kw, text, re.I):
+						offset_list.append(m.start())
+					trommel_output.write("Non-Plain Text File, Keyword Variation: 'private key', File: %s, Offset(s) in File: " % (ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
 				else:
 					trommel_output.write("Plain Text File, Keyword Variation: 'private key', File: %s, Keyword Hits in File: %d\n" % (ff, len(hits)))
 	except IOError:
@@ -219,9 +225,12 @@ def kw(ff, trommel_output, names):
 				magic_mime = magic.from_file(ff, mime=True)
 				magic_hit = re.search(mime_kw, magic_mime, re.I)
 				if magic_hit:
-					trommel_output.write("Non-Plain Text File, Keyword IP address: %s, File: %s\n" % (h, ff))
+					offset_list = []
+					for m in re.finditer(ipaddr, text, re.S):
+						offset_list.append(m.start())
+					trommel_output.write("Non-Plain Text File, Keyword IP Address: '%s', File: %s, Offset(s) in File: " % (h, ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
 				else:
-					trommel_output.write("Plain Text File, Keyword IP address: %s, File: %s\n" % (h, ff))
+					trommel_output.write("Plain Text File, Keyword IP Address: %s, File: %s\n" % (h, ff))
 	except IOError:
 		pass
 
@@ -233,7 +242,10 @@ def kw(ff, trommel_output, names):
 				magic_mime = magic.from_file(ff, mime=True)
 				magic_hit = re.search(mime_kw, magic_mime, re.I)
 				if magic_hit:
-					trommel_output.write("Non-Plain Text File, Keyword URL: %s, File: %s\n" % (h, ff))
+					offset_list = []
+					for m in re.finditer(urls, text, re.S):
+						offset_list.append(m.start())
+					trommel_output.write("Non-Plain Text File, Keyword URL: '%s', File: %s, Offset(s) in File: " % (h, ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
 				else:
 					trommel_output.write("Plain Text File, Keyword URL: %s, File: %s\n" % (h, ff))
 	except IOError:
@@ -247,7 +259,10 @@ def kw(ff, trommel_output, names):
 				magic_mime = magic.from_file(ff, mime=True)
 				magic_hit = re.search(mime_kw, magic_mime, re.I)
 				if magic_hit:
-					trommel_output.write("Non-Plain Text File, Keyword Email Address: %s, File: %s\n" % (h, ff))
+					offset_list = []
+					for m in re.finditer(email, text, re.S):
+						offset_list.append(m.start())
+					trommel_output.write("Non-Plain Text File, Keyword Email Address: '%s', File: %s, Offset(s) in File: " % (h, ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
 				else:
 					trommel_output.write("Plain Text File, Keyword Email Address: %s, File: %s\n" % (h, ff))
 	except IOError:
@@ -261,7 +276,10 @@ def kw(ff, trommel_output, names):
 				magic_mime = magic.from_file(ff, mime=True)
 				magic_hit = re.search(mime_kw, magic_mime, re.I)
 				if magic_hit:
-					trommel_output.write("Non-Plain Text File, Keyword Variation: 'secret key', File: %s,  Keyword Hits in File: %d\n" % (ff, len(hits)))
+					offset_list = []
+					for m in re.finditer(secret_key_kw, text, re.I):
+						offset_list.append(m.start())
+					trommel_output.write("Non-Plain Text File, Keyword Variation: 'secret key', File: %s, Offset(s) in File: " % (ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
 				else:
 					trommel_output.write("Plain Text File, Keyword Variation: 'secret key', File: %s, Keyword Hits in File: %d\n" % (ff, len(hits)))
 	except IOError:
@@ -288,8 +306,10 @@ def kw(ff, trommel_output, names):
 		trommel_output.write("Non-Plain Text File, Apache binary file: %s" % ff)
 	if lighttpd_bin in ff:
 		text_search(lighttpd_bin, trommel_output)
+		
 	if alphapd_bin in ff:
 		text_search(alphapd_bin, trommel_output)
+		
 	if httpd_bin in ff:
 		trommel_output.write("Non-Plain Text File, httpd binary file: %s" % ff)
 
