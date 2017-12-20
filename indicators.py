@@ -221,16 +221,17 @@ def kw(ff, trommel_output, names):
 		with open (ff, 'r') as ipaddr_keyword:
 			text = ipaddr_keyword.read()
 			hits = re.findall(ipaddr, text, re.S)
-			for h in hits:
+			if hits:
 				magic_mime = magic.from_file(ff, mime=True)
 				magic_hit = re.search(mime_kw, magic_mime, re.I)
 				if magic_hit:
 					offset_list = []
 					for m in re.finditer(ipaddr, text, re.S):
 						offset_list.append(m.start())
-					trommel_output.write("Non-Plain Text File, Keyword IP Address: '%s', File: %s, Offset(s) in File: " % (h, ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
+					trommel_output.write("Non-Plain Text File, Keyword IP Address: '%s', File: %s, Offset(s) in File: " % (m.group(0), ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
 				else:
-					trommel_output.write("Plain Text File, Keyword IP Address: %s, File: %s\n" % (h, ff))
+					for h in hits:
+						trommel_output.write("Plain Text File, Keyword IP Address: %s, File: %s\n" % (h, ff))
 	except IOError:
 		pass
 
