@@ -109,52 +109,52 @@ def kw(ff, trommel_output, names):
 	
 	#Search key or password related files & keywords
 	if passwd in ff:
-		trommel_output.write("A passwd file: %s" % ff)
+		trommel_output.write("A passwd file: %s\n" % ff)
 	if shadow in ff:
-		trommel_output.write("A shadow file: %s" % ff)
+		trommel_output.write("A shadow file: %s\n" % ff)
 	if psk_hits in ff:
-		trommel_output.write("A .psk file: %s" % ff)
+		trommel_output.write("A .psk file: %s\n" % ff)
 	if key_pass in ff:
-		trommel_output.write("A keypass file: %s" % ff)
+		trommel_output.write("A keypass file: %s\n" % ff)
 	if k_wallet in ff:
-		trommel_output.write("A kwallet file: %s" % ff)	
+		trommel_output.write("A kwallet file: %s\n" % ff)	
 	if open_vpn in ff:
-		trommel_output.write("An ovpn file: %s" % ff)
+		trommel_output.write("An ovpn file: %s\n" % ff)
 	if pgp_log in ff:
-		trommel_output.write("A pgplog file: %s" % ff)
+		trommel_output.write("A pgplog file: %s\n" % ff)
 	if pgp_policy in ff:
-		trommel_output.write("A pgppolicy.xml file: %s" % ff)
+		trommel_output.write("A pgppolicy.xml file: %s\n" % ff)
 	if pgp_prefs in ff:
-		trommel_output.write("A pgpprefs.xml file: %s" % ff)
+		trommel_output.write("A pgpprefs.xml file: %s\n" % ff)
 	if priv_kw in ff:
-		trommel_output.write("A file with private in the file name: %s" % ff)
+		trommel_output.write("A file with private in the file name: %s\n" % ff)
 	if secret_kw in ff:
-		trommel_output.write("A file with secret in the file name: %s" % ff)
+		trommel_output.write("A file with secret in the file name: %s\n" % ff)
 	if javaks in ff:
-		trommel_output.write("A JavaKeyStore file: %s" % ff)
+		trommel_output.write("A JavaKeyStore file: %s\n" % ff)
 	if sftpconfig in ff:
-		trommel_output.write("A sftp-config file: %s" % ff)
+		trommel_output.write("A sftp-config file: %s\n" % ff)
 	if bitcoinfile in ff:
-		trommel_output.write("A Bitcoin Wallet: %s" % ff)
+		trommel_output.write("A Bitcoin Wallet: %s\n" % ff)
 	if pwd_safe in ff:
-		trommel_output.write("A Password Safe file: %s" % ff)
+		trommel_output.write("A Password Safe file: %s\n" % ff)
 
 
 	#Search for SSH related files
 	if auth_key_file in ff:
-		trommel_output.write("An authorized_keys file: %s" % ff)
+		trommel_output.write("An authorized_keys file: %s\n" % ff)
 	if host_key_file in ff:
-		trommel_output.write("A host_key file: %s" % ff)
+		trommel_output.write("A host_key file: %s\n" % ff)
 	if id_rsa_file in ff:
-		trommel_output.write("An id_rsa file: %s" % ff)
+		trommel_output.write("An id_rsa file: %s\n" % ff)
 	if id_dsa_file in ff:
-		trommel_output.write("An id_dsa file: %s" % ff)
+		trommel_output.write("An id_dsa file: %s\n" % ff)
 	if dotPub in ff:
-		trommel_output.write("A .pub file: %s" % ff)
+		trommel_output.write("A .pub file: %s\n" % ff)
 	if id_ecdsa_file in ff:
-		trommel_output.write("An id_ecdsa file: %s" % ff)
+		trommel_output.write("An id_ecdsa file: %s\n" % ff)
 	if id_ed25519_file in ff:
-		trommel_output.write("An id_ed25519 file: %s" % ff)
+		trommel_output.write("An id_ed25519 file: %s\n" % ff)
 	read_search_kw(ff, id_dsa_file, trommel_output)
 	read_search_kw(ff, host_key_file, trommel_output)
 	read_search_kw(ff, auth_key_file, trommel_output)
@@ -164,19 +164,19 @@ def kw(ff, trommel_output, names):
 
 	#Search for SSL related files - filenames: *.pem, *.crt, *.cer, *.p7b, *.p12, *.key
 	if pem in ff:
-		trommel_output.write("A SSL related .pem file: %s" % ff)
+		trommel_output.write("A SSL related .pem file: %\ns" % ff)
 	if crt in ff:
-		trommel_output.write("A SSL related .crt file: %s" % ff)
+		trommel_output.write("A SSL related .crt file: %s\n" % ff)
 	if cer in ff:
-		trommel_output.write("A SSL related .cer file: %s" % ff)
+		trommel_output.write("A SSL related .cer file: %s\n" % ff)
 	if p7b in ff:
-		trommel_output.write("A SSL related .p7b file: %s" % ff)
+		trommel_output.write("A SSL related .p7b file: %s\n" % ff)
 	if p12 in ff:
-		trommel_output.write("A SSL related .p12 file: %s" % ff)
+		trommel_output.write("A SSL related .p12 file: %s\n" % ff)
 	if dotKey in ff:
-		trommel_output.write("A SSL related .key file: %s" % ff)
+		trommel_output.write("A SSL related .key file: %s\n" % ff)
 	if p15 in ff:
-		trommel_output.write("A SSL related .p15 file: %s" % ff)
+		trommel_output.write("A SSL related .p15 file: %s\n" % ff)
 
 
 	#Search for keyword of interest within files
@@ -304,7 +304,7 @@ def kw(ff, trommel_output, names):
 
 	#Search for web server binaries - apache, lighttpd, alphapd, httpd
 	if apache_bin in ff:
-		trommel_output.write("Non-Plain Text File, Apache binary file: %s" % ff)
+		trommel_output.write("Non-Plain Text File, Apache binary file: %s\n" % ff)
 	if lighttpd_bin in ff:
 		text_search(lighttpd_bin, trommel_output)
 		
@@ -312,7 +312,7 @@ def kw(ff, trommel_output, names):
 		text_search(alphapd_bin, trommel_output)
 		
 	if httpd_bin in ff:
-		trommel_output.write("Non-Plain Text File, httpd binary file: %s" % ff)
+		trommel_output.write("Non-Plain Text File, httpd binary file: %s\n" % ff)
 
 	#Search for config files with these extensions *.conf, *.cfg, *.ini
 	if config_1 in ff:
@@ -340,7 +340,7 @@ def kw(ff, trommel_output, names):
 		else:
 			trommel_output.write("Plain Text File, A configuration file (.ini), File: %s\n" % (ff))
 			
-		trommel_output.write("A .ini configuration file: %s" % ff)
+		trommel_output.write("A .ini configuration file: %s\n" % ff)
 
 	#Search for database files with these extensions *.db and *.sqlite
 	if db_file in ff:
@@ -370,27 +370,27 @@ def kw(ff, trommel_output, names):
 
 	#Search for binary files of interest
 	if ssh_bin in ff:
-		trommel_output.write("Non-Plain Text File, ssh binary file: %s" % ff)
+		trommel_output.write("Non-Plain Text File, ssh binary file: %s\n" % ff)
 	if sshd_bin in ff:
-		trommel_output.write("Non-Plain Text File, sshd binary file: %s" % ff)
+		trommel_output.write("Non-Plain Text File, sshd binary file: %s\n" % ff)
 	if scp_bin in ff:
-		trommel_output.write("Non-Plain Text File, scp binary file: %s" % ff)
+		trommel_output.write("Non-Plain Text File, scp binary file: %s\n" % ff)
 	if sftp_bin in ff:
-		trommel_output.write("Non-Plain Text File, sftp binary file: %s" % ff)
+		trommel_output.write("Non-Plain Text File, sftp binary file: %s\n" % ff)
 	if tftp_bin in ff:
-		trommel_output.write("Non-Plain Text File, tftp binary file: %s" % ff)
+		trommel_output.write("Non-Plain Text File, tftp binary file: %s\n" % ff)
 	if dropbear_bin in ff:
 		text_search(dropbear_bin, trommel_output)
 	if telnet_bin in ff:
-		trommel_output.write("Non-Plain Text File, telnet binary file: %s" % ff)
+		trommel_output.write("Non-Plain Text File, telnet binary file: %s\n" % ff)
 	if telnetd_bin in ff:
-		trommel_output.write("Non-Plain Text File, telnetd binary file: %s" % ff)
+		trommel_output.write("Non-Plain Text File, telnetd binary file: %s\n" % ff)
 	if openssl_bin in ff:
-		trommel_output.write("Non-Plain Text File, openssl binary file: %s" % ff)		
+		trommel_output.write("Non-Plain Text File, openssl binary file: %s\n" % ff)		
 	if busybox_bin in ff:
 		text_search(busybox_bin, trommel_output)	
 	if other_bins in ff:
-		trommel_output.write("Non-Plain Text File, .bin file: %s" % ff)			
+		trommel_output.write("Non-Plain Text File, .bin file: %s\n" % ff)			
 
 
 	#WebApp specific - PHP, Javascript, VBScript, Lua
@@ -486,7 +486,7 @@ def kw(ff, trommel_output, names):
 			text = file.read()
 			hits = re.findall(perm, text, re.S)
 			for h in hits:
-				trommel_output.write("Found a file that contains a Android permission: %s : %s" % (ff, h))
+				trommel_output.write("Found a file that contains a Android permission: %s : %s\n" % (ff, h))
 	except IOError:
 		pass
 
@@ -496,7 +496,7 @@ def kw(ff, trommel_output, names):
 			text = file.read()
 			hits = re.findall(pkg_name, text, re.S)
 			for h in hits:
-				trommel_output.write("Found a file that contains a Android package/app name: %s : %s" % (ff, h))
+				trommel_output.write("Found a file that contains a Android package/app name: %s : %s\n" % (ff, h))
 	except IOError:
 		pass
 
