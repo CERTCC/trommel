@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file.
 
 ## 2017-12-20
 ### Changed
-- Updated indicators.py to include byte offsets for indicator hits in non-plain text files. 
+- Updated indicators.py to include byte offsets for (most) indicator hits in non-plain text files. 
 
 ## 2017-12-08
 ### Changed
