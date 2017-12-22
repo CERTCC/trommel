@@ -260,10 +260,7 @@ def kw(ff, trommel_output, names):
 				magic_mime = magic.from_file(ff, mime=True)
 				magic_hit = re.search(mime_kw, magic_mime, re.I)
 				if magic_hit:
-					offset_list = []
-					for m in re.finditer(email, text, re.S):
-						offset_list.append(m.start())
-					trommel_output.write("Non-Plain Text File, Keyword Email Address: '%s', File: %s, Offset(s) in File: " % (h, ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
+					trommel_output.write("Non-Plain Text File, Keyword Email Address: '%s', File: %s" % (h, ff))
 				else:
 					trommel_output.write("Plain Text File, Keyword Email Address: %s, File: %s\n" % (h, ff))
 	except IOError:
