@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2018-01-26
+## Changed
+- Updated indicators.py to include regex searches for version numbers of BusyBox, Dropbear (late 2011 or newer), and lighttpd.
+
 ## 2017-12-21
 ### Added
 - Created this Changelog.md file. 

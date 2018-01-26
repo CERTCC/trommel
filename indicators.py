@@ -82,7 +82,7 @@ def text_search(search_term, trommel_output):
 		cve_hit = '"(CVE-\d+-\d+ : .*\.)"'
 		name_hit = re.findall(cve_hit, search_text)
 		for match_hit in name_hit:
-			trommel_output.write("Check file version on embedded device - Found %s and it has been associated with %s\n" % (search_term, match_hit))
+			trommel_output.write("Check file version on embedded device [may need to emulate environment] - Found %s and it has been associated with %s\n" % (search_term, match_hit))
 	#Searches above CVE in Exploit-DB and Metasploit
 	for cve_hit in cve_field:
 		edb = exploitdb_result(cve_hit)
@@ -164,7 +164,7 @@ def kw(ff, trommel_output, names):
 
 	#Search for SSL related files - filenames: *.pem, *.crt, *.cer, *.p7b, *.p12, *.key
 	if pem in ff:
-		trommel_output.write("A SSL related .pem file: %\ns" % ff)
+		trommel_output.write("A SSL related .pem file: %s\n" % ff)
 	if crt in ff:
 		trommel_output.write("A SSL related .crt file: %s\n" % ff)
 	if cer in ff:
@@ -302,7 +302,14 @@ def kw(ff, trommel_output, names):
 	#Search for web server binaries - apache, lighttpd, alphapd, httpd
 	if apache_bin in ff:
 		trommel_output.write("Non-Plain Text File, Apache binary file: %s\n" % ff)
+		
 	if lighttpd_bin in ff:
+		with open (ff, 'r') as keyword_search:
+			text = keyword_search.read()
+			lt_term = 'lighttpd/[0-9]{1}\.[0-9]{1,2}\.[0-9]{1,2}'
+			lt_hit = re.search(lt_term, text)
+			if lt_hit:
+				trommel_output.write("The lighttpd binary found is %s\n" % lt_hit.group())
 		text_search(lighttpd_bin, trommel_output)
 		
 	if alphapd_bin in ff:
@@ -377,6 +384,12 @@ def kw(ff, trommel_output, names):
 	if tftp_bin in ff:
 		trommel_output.write("Non-Plain Text File, tftp binary file: %s\n" % ff)
 	if dropbear_bin in ff:
+		with open (ff, 'r') as keyword_search:
+			text = keyword_search.read()
+			drop_term = 'Dropbear server v[0-9]{4}\.[0-9]{2,3}'
+			drop_hit = re.search(drop_term, text)
+			if drop_hit:
+				trommel_output.write("The Dropbear (late 2011 or newer) binary found is %s\n" % drop_hit.group())
 		text_search(dropbear_bin, trommel_output)
 	if telnet_bin in ff:
 		trommel_output.write("Non-Plain Text File, telnet binary file: %s\n" % ff)
@@ -385,7 +398,13 @@ def kw(ff, trommel_output, names):
 	if openssl_bin in ff:
 		trommel_output.write("Non-Plain Text File, openssl binary file: %s\n" % ff)		
 	if busybox_bin in ff:
-		text_search(busybox_bin, trommel_output)	
+		with open (ff, 'r') as keyword_search:
+			text = keyword_search.read()
+			bb_term = 'BusyBox v[0-9]{1}\.[0-9]{1,2}\.[0-9]{1}'
+			bb_hit = re.search(bb_term, text)
+			if bb_hit:
+				trommel_output.write("The BusyBox binary found is %s\n" % bb_hit.group())
+		text_search(busybox_bin, trommel_output)
 	if other_bins in ff:
 		trommel_output.write("Non-Plain Text File, .bin file: %s\n" % ff)			
 
