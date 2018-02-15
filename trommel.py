@@ -17,13 +17,13 @@ output = args['output']
 yrmoday = datetime.now().strftime("%Y%m%d_%H%M%S")
 
 #Save file name and date information to file in working directory script
-trommel_output =  file(output+'_Trommel_'+yrmoday,'wt')
+trommel_output =  file(output+'_TROMMEL_'+yrmoday,'wt')
 
 
 #Main function		
 def main():
 	#Print information to terminal
-	print "\nTrommel is working to sift through the directory of files.\nResults will be saved to '%s_Trommel_%s'\n" % (output, yrmoday)
+	print "\nTROMMEL is working to sift through the directory of files.\nResults will be saved to '%s_TROMMEL_%s'\n" % (output, yrmoday)
 	
 	#Title written to file
 	trommel_output.write('''
@@ -38,7 +38,7 @@ def main():
 ''')
 	
 	#User given name and path to user given directory to search
-	trommel_output.write("Trommel Results File Name: %s\nDirectory: %s\n" % (output,path))
+	trommel_output.write("TROMMEL Results File Name: %s\nDirectory: %s\n" % (output,path))
 	
 	#Count number of files within given path directory
 	total = 0

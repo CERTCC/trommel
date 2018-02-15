@@ -1,8 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2018-02-25
+### Changed
+- Added a instruction set architecture check based on the byte offsets in ELF executable. Currently, just checks Busybox binary. 
+
+
 ## 2018-01-26
-## Changed
+### Changed
 - Updated indicators.py to include regex searches for version numbers of BusyBox, Dropbear (late 2011 or newer), and lighttpd.
 
 ## 2017-12-21

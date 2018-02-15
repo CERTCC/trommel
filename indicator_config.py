@@ -47,8 +47,7 @@ rsa_key_pair = "rsakeypair"
 secretkey_kw = "secretkey"
 ssh_hot_keys = "sshhostkeys"
 
-mime_kw = 'x-executable|x-sharedlib|x-binary|LSB executable|LSB shared object|archive data|GNU message catalog|tar archive|gzip compressed data|byte-compiled'
-
+mime_kw = 'x-executable|x-sharedlib|x-binary|LSB executable|LSB shared object|MSB executable|MSB shared object|archive data|GNU message catalog|tar archive|gzip compressed data|byte-compiled'
 
 private_key_kw = "private.*key"
 ipaddr = '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'

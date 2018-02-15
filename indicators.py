@@ -2,6 +2,7 @@
 import magic
 import re
 import os
+from itertools import count
 
 from indicator_config import *
 
@@ -103,9 +104,65 @@ def text_search(search_term, trommel_output):
 				for match2 in msf_title_match:
 					trommel_output.write("%s is associated with the following Metasploit Module: %s - %s\n" % (cve_hit, match2, match))
 
+def check_arch(ff, trommel_output):
+	ISADict = {b'\x00':'No Specific Instruction Set', b'\x02':'SPARC' , b'\x03':'x86', b'\x08':'MIPS', b'\x14':'PowerPC',b'\x16':'S390',b'\x28':'ARM', b'\x2a':'SuperH', b'\x32':'IA-64', b'\x3e':'x86-64', b'\xb7':'Arch64', b'\xf3':'RISC-V'}
+	magic_mime = magic.from_file(ff, mime=True)
+	magic_hit = re.search(mime_kw, magic_mime, re.I)
+	if magic_hit:
+		with open(ff, "rb") as f:
+			byte = f.read(20)
+			for key, value in ISADict.items():
+				if byte[5] == b'\x01' and byte[18] == key:
+					trommel_output.write("The instruction set architecture is %s.\n" % value)
+				else:
+					if byte[5] == b'\x02' and byte[19] == key: 
+						trommel_output.write("The instruction set architecture is %s\n" % value)
+
 
 #Main function 	
 def kw(ff, trommel_output, names):
+	
+	bb_bin = '/bin/%s' % busybox_bin
+	if bb_bin in ff:
+		check_arch(ff, trommel_output)
+
+			
+	#Search for binary files of interest
+	if ssh_bin in ff:
+		trommel_output.write("Non-Plain Text File, ssh binary file: %s\n" % ff)
+	if sshd_bin in ff:
+		trommel_output.write("Non-Plain Text File, sshd binary file: %s\n" % ff)
+	if scp_bin in ff:
+		trommel_output.write("Non-Plain Text File, scp binary file: %s\n" % ff)
+	if sftp_bin in ff:
+		trommel_output.write("Non-Plain Text File, sftp binary file: %s\n" % ff)
+	if tftp_bin in ff:
+		trommel_output.write("Non-Plain Text File, tftp binary file: %s\n" % ff)
+	if dropbear_bin in ff:
+		with open (ff, 'r') as keyword_search:
+			text = keyword_search.read()
+			drop_term = 'Dropbear server v[0-9]{4}\.[0-9]{2,3}'
+			drop_hit = re.search(drop_term, text)
+			if drop_hit:
+				trommel_output.write("The Dropbear (late 2011 or newer) binary found is %s\n" % drop_hit.group())
+		text_search(dropbear_bin, trommel_output)
+	if telnet_bin in ff:
+		trommel_output.write("Non-Plain Text File, telnet binary file: %s\n" % ff)
+	if telnetd_bin in ff:
+		trommel_output.write("Non-Plain Text File, telnetd binary file: %s\n" % ff)
+	if openssl_bin in ff:
+		trommel_output.write("Non-Plain Text File, openssl binary file: %s\n" % ff)		
+	if busybox_bin in ff:
+		with open (ff, 'r') as keyword_search:
+			text = keyword_search.read()
+			bb_term = 'BusyBox v[0-9]{1}\.[0-9]{1,2}\.[0-9]{1}'
+			bb_hit = re.search(bb_term, text)
+			if bb_hit:
+				trommel_output.write("The BusyBox binary found is %s\n" % bb_hit.group())
+		text_search(busybox_bin, trommel_output)
+	if other_bins in ff:
+		trommel_output.write("Non-Plain Text File, .bin file: %s\n" % ff)
+	
 	
 	#Search key or password related files & keywords
 	if passwd in ff:
@@ -372,41 +429,7 @@ def kw(ff, trommel_output, names):
 			trommel_output.write("Plain Text File,  A database file (.sql), File: %s\n" % (ff))
 		
 
-	#Search for binary files of interest
-	if ssh_bin in ff:
-		trommel_output.write("Non-Plain Text File, ssh binary file: %s\n" % ff)
-	if sshd_bin in ff:
-		trommel_output.write("Non-Plain Text File, sshd binary file: %s\n" % ff)
-	if scp_bin in ff:
-		trommel_output.write("Non-Plain Text File, scp binary file: %s\n" % ff)
-	if sftp_bin in ff:
-		trommel_output.write("Non-Plain Text File, sftp binary file: %s\n" % ff)
-	if tftp_bin in ff:
-		trommel_output.write("Non-Plain Text File, tftp binary file: %s\n" % ff)
-	if dropbear_bin in ff:
-		with open (ff, 'r') as keyword_search:
-			text = keyword_search.read()
-			drop_term = 'Dropbear server v[0-9]{4}\.[0-9]{2,3}'
-			drop_hit = re.search(drop_term, text)
-			if drop_hit:
-				trommel_output.write("The Dropbear (late 2011 or newer) binary found is %s\n" % drop_hit.group())
-		text_search(dropbear_bin, trommel_output)
-	if telnet_bin in ff:
-		trommel_output.write("Non-Plain Text File, telnet binary file: %s\n" % ff)
-	if telnetd_bin in ff:
-		trommel_output.write("Non-Plain Text File, telnetd binary file: %s\n" % ff)
-	if openssl_bin in ff:
-		trommel_output.write("Non-Plain Text File, openssl binary file: %s\n" % ff)		
-	if busybox_bin in ff:
-		with open (ff, 'r') as keyword_search:
-			text = keyword_search.read()
-			bb_term = 'BusyBox v[0-9]{1}\.[0-9]{1,2}\.[0-9]{1}'
-			bb_hit = re.search(bb_term, text)
-			if bb_hit:
-				trommel_output.write("The BusyBox binary found is %s\n" % bb_hit.group())
-		text_search(busybox_bin, trommel_output)
-	if other_bins in ff:
-		trommel_output.write("Non-Plain Text File, .bin file: %s\n" % ff)			
+		
 
 
 	#WebApp specific - PHP, Javascript, VBScript, Lua
