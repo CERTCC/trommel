@@ -1,10 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2018-03-02
+### Changed
+- Updated the description.
+
 ## 2018-02-25
 ### Changed
 - Added a instruction set architecture check based on the byte offsets in ELF executable. Currently, just checks Busybox binary. 
-
 
 ## 2018-01-26
 ### Changed
