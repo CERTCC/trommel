@@ -1,3 +1,21 @@
+import magic
+import re
+
+def check_arch(ff, trommel_output):
+	ISADict = {b'\x00':'No Specific Instruction Set', b'\x02':'SPARC' , b'\x03':'x86', b'\x08':'MIPS', b'\x14':'PowerPC',b'\x16':'S390',b'\x28':'ARM', b'\x2a':'SuperH', b'\x32':'IA-64', b'\x3e':'x86-64', b'\xb7':'Arch64', b'\xf3':'RISC-V'}
+	magic_mime = magic.from_file(ff, mime=True)
+	magic_hit = re.search(mime_kw, magic_mime, re.I)
+	if magic_hit:
+		with open(ff, "rb") as f:
+			byte = f.read(20)
+			for key, value in ISADict.items():
+				if byte[5] == b'\x01' and byte[18] == key:
+					return value
+				else:
+					if byte[5] == b'\x02' and byte[19] == key: 
+						return value
+
+
 passwd = 'passwd'
 shadow = 'shadow'
 psk_hits = ".psk"

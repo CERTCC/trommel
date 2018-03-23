@@ -2,6 +2,9 @@ import argparse
 import os
 from datetime import datetime
 import indicators
+import magic
+import re
+import indicator_config
 
 parser = argparse.ArgumentParser(description= "TROMMEL: Sift Through Directories of Files to Identify Indicators That May Contain Vulnerabilities")
 parser.add_argument("-p","--path", required=True, help="Directory to Search")
@@ -58,6 +61,10 @@ def main():
 		for names in files:
 			ff = os.path.join(root,names)
 			
+			if '/bin/busybox' in ff:
+				value = indicator_config.check_arch(ff, trommel_output)
+				print "Based on the binary 'busybox' the instruction set architecture is %s.\n" % value
+		
 			#Ignore any symlinks
 			if not os.path.islink(ff):
 				

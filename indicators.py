@@ -104,19 +104,7 @@ def text_search(search_term, trommel_output):
 				for match2 in msf_title_match:
 					trommel_output.write("%s is associated with the following Metasploit Module: %s - %s\n" % (cve_hit, match2, match))
 
-def check_arch(ff, trommel_output):
-	ISADict = {b'\x00':'No Specific Instruction Set', b'\x02':'SPARC' , b'\x03':'x86', b'\x08':'MIPS', b'\x14':'PowerPC',b'\x16':'S390',b'\x28':'ARM', b'\x2a':'SuperH', b'\x32':'IA-64', b'\x3e':'x86-64', b'\xb7':'Arch64', b'\xf3':'RISC-V'}
-	magic_mime = magic.from_file(ff, mime=True)
-	magic_hit = re.search(mime_kw, magic_mime, re.I)
-	if magic_hit:
-		with open(ff, "rb") as f:
-			byte = f.read(20)
-			for key, value in ISADict.items():
-				if byte[5] == b'\x01' and byte[18] == key:
-					trommel_output.write("The instruction set architecture is %s.\n" % value)
-				else:
-					if byte[5] == b'\x02' and byte[19] == key: 
-						trommel_output.write("The instruction set architecture is %s\n" % value)
+
 
 
 #Main function 	
@@ -124,7 +112,8 @@ def kw(ff, trommel_output, names, bin_search):
 	
 	bb_bin = '/bin/%s' % busybox_bin
 	if bb_bin in ff:
-		check_arch(ff, trommel_output)
+		value = check_arch(ff, trommel_output)
+		trommel_output.write("Based on the binary 'busybox' the instruction set architecture is %s.\n" % value)
 
 			
 	#Search for binary files of interest
