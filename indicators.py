@@ -17,11 +17,12 @@ def read_search_kw(ff, keyword, trommel_output, bin_search):
 			if hits:
 				magic_mime = magic.from_file(ff, mime=True)
 				magic_hit = re.search(mime_kw, magic_mime, re.I)
-				if magic_hit and bin_search is True:
-					offset_list = []
-					for m in re.finditer(keyword, text, re.I):
-						offset_list.append(m.start())
-					trommel_output.write("Non-Plain Text File, Keyword: '%s', File: %s, Offset(s) in File: " % (keyword, ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
+				if magic_hit:
+					if bin_search is True:
+						offset_list = []
+						for m in re.finditer(keyword, text, re.I):
+							offset_list.append(m.start())
+						trommel_output.write("Non-Plain Text File, Keyword: '%s', File: %s, Offset(s) in File: " % (keyword, ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
 				else:
 					trommel_output.write("Plain Text File, Keyword: '%s', File: %s, Keyword Hits in File: %d\n" % (keyword, ff, len(hits)))
 	except IOError:
@@ -36,11 +37,12 @@ def read_search_case_kw(ff, keyword, trommel_output, bin_search):
 			if hits:
 				magic_mime = magic.from_file(ff, mime=True)
 				magic_hit = re.search(mime_kw, magic_mime, re.I)
-				if magic_hit and bin_search is True:
-					offset_list = []
-					for m in re.finditer(keyword, text):
-						offset_list.append(m.start())
-					trommel_output.write("Non-Plain Text File, Keyword: '%s', File: %s, Offset(s) in File: " % (keyword, ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
+				if magic_hit:
+					if bin_search is True:
+						offset_list = []
+						for m in re.finditer(keyword, text):
+							offset_list.append(m.start())
+						trommel_output.write("Non-Plain Text File, Keyword: '%s', File: %s, Offset(s) in File: " % (keyword, ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
 				else:
 					trommel_output.write("Plain Text File, Keyword: '%s', File: %s, Keyword Hits in File: %d\n" % (keyword, ff, len(hits)))
 	except IOError:
@@ -262,11 +264,12 @@ def kw(ff, trommel_output, names, bin_search):
 			if hits:
 				magic_mime = magic.from_file(ff, mime=True)
 				magic_hit = re.search(mime_kw, magic_mime, re.I)
-				if magic_hit and bin_search is True:
-					offset_list = []
-					for m in re.finditer(private_key_kw, text, re.I):
-						offset_list.append(m.start())
-					trommel_output.write("Non-Plain Text File, Keyword Variation: 'private key', File: %s, Offset(s) in File: " % (ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
+				if magic_hit:
+					if bin_search is True:
+						offset_list = []
+						for m in re.finditer(private_key_kw, text, re.I):
+							offset_list.append(m.start())
+						trommel_output.write("Non-Plain Text File, Keyword Variation: 'private key', File: %s, Offset(s) in File: " % (ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
 				else:
 					trommel_output.write("Plain Text File, Keyword Variation: 'private key', File: %s, Keyword Hits in File: %d\n" % (ff, len(hits)))
 	except IOError:
@@ -279,11 +282,12 @@ def kw(ff, trommel_output, names, bin_search):
 			if hits:
 				magic_mime = magic.from_file(ff, mime=True)
 				magic_hit = re.search(mime_kw, magic_mime, re.I)
-				if magic_hit and bin_search is True:
-					offset_list = []
-					for m in re.finditer(ipaddr, text, re.S):
-						offset_list.append(m.start())
-					trommel_output.write("Non-Plain Text File, Keyword IP Address: '%s', File: %s, Offset(s) in File: " % (m.group(0), ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
+				if magic_hit:
+					if bin_search is True:
+						offset_list = []
+						for m in re.finditer(ipaddr, text, re.S):
+							offset_list.append(m.start())
+						trommel_output.write("Non-Plain Text File, Keyword IP Address: '%s', File: %s, Offset(s) in File: " % (m.group(0), ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
 				else:
 					for h in hits:
 						trommel_output.write("Plain Text File, Keyword IP Address: %s, File: %s\n" % (h, ff))
@@ -297,11 +301,12 @@ def kw(ff, trommel_output, names, bin_search):
 			for h in hits:
 				magic_mime = magic.from_file(ff, mime=True)
 				magic_hit = re.search(mime_kw, magic_mime, re.I)
-				if magic_hit and bin_search is True:
-					offset_list = []
-					for m in re.finditer(urls, text, re.S):
-						offset_list.append(m.start())
-					trommel_output.write("Non-Plain Text File, Keyword URL: '%s', File: %s, Offset(s) in File: " % (h, ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
+				if magic_hit:
+					if bin_search is True:
+						offset_list = []
+						for m in re.finditer(urls, text, re.S):
+							offset_list.append(m.start())
+						trommel_output.write("Non-Plain Text File, Keyword URL: '%s', File: %s, Offset(s) in File: " % (h, ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
 				else:
 					trommel_output.write("Plain Text File, Keyword URL: %s, File: %s\n" % (h, ff))
 	except IOError:
@@ -314,8 +319,9 @@ def kw(ff, trommel_output, names, bin_search):
 			for h in hits:
 				magic_mime = magic.from_file(ff, mime=True)
 				magic_hit = re.search(mime_kw, magic_mime, re.I)
-				if magic_hit and bin_search is True:
-					trommel_output.write("Non-Plain Text File, Keyword Email Address: '%s', File: %s" % (h, ff))
+				if magic_hit:
+					if bin_search is True:
+						trommel_output.write("Non-Plain Text File, Keyword Email Address: '%s', File: %s" % (h, ff))
 				else:
 					trommel_output.write("Plain Text File, Keyword Email Address: %s, File: %s\n" % (h, ff))
 	except IOError:
@@ -328,11 +334,12 @@ def kw(ff, trommel_output, names, bin_search):
 			if hits:
 				magic_mime = magic.from_file(ff, mime=True)
 				magic_hit = re.search(mime_kw, magic_mime, re.I)
-				if magic_hit and bin_search is True:
-					offset_list = []
-					for m in re.finditer(secret_key_kw, text, re.I):
-						offset_list.append(m.start())
-					trommel_output.write("Non-Plain Text File, Keyword Variation: 'secret key', File: %s, Offset(s) in File: " % (ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
+				if magic_hit:
+					if bin_search is True:
+						offset_list = []
+						for m in re.finditer(secret_key_kw, text, re.I):
+							offset_list.append(m.start())
+						trommel_output.write("Non-Plain Text File, Keyword Variation: 'secret key', File: %s, Offset(s) in File: " % (ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
 				else:
 					trommel_output.write("Plain Text File, Keyword Variation: 'secret key', File: %s, Keyword Hits in File: %d\n" % (ff, len(hits)))
 	except IOError:
@@ -348,8 +355,9 @@ def kw(ff, trommel_output, names, bin_search):
 	if shell_script in ff:
 		magic_mime = magic.from_file(ff, mime=True)
 		magic_hit = re.search(mime_kw, magic_mime, re.I)
-		if magic_hit and bin_search is True:
-			trommel_output.write("Non-Plain Text File, A shell script, File: %s\n" % (ff))
+		if magic_hit:
+			if bin_search is True:
+				trommel_output.write("Non-Plain Text File, A shell script, File: %s\n" % (ff))
 		else:
 			trommel_output.write("Plain Text File, A shell script, File: %s\n" % (ff))
 
