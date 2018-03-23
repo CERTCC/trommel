@@ -6,11 +6,14 @@ import indicators
 parser = argparse.ArgumentParser(description= "TROMMEL: Sift Through Directories of Files to Identify Indicators That May Contain Vulnerabilities")
 parser.add_argument("-p","--path", required=True, help="Directory to Search")
 parser.add_argument("-o","--output", required=True, help="Output Trommel Results File Name (no spaces)")
+parser.add_argument("-b","--binary", action='store_true', help="Search in Binary Files")
 
 args = vars(parser.parse_args())
 
 path = args['path']
 output = args['output']
+bin_search = args['binary']
+
 
 
 #Date informtion
@@ -61,9 +64,9 @@ def main():
 				#Ignore the /dev directory. Script has problems with files in this directory
 				dev_kw = "/dev/"
 				if not dev_kw in ff:
-				
+					
 					if path and output: 
-						indicators.kw(ff, trommel_output, names)
+						indicators.kw(ff, trommel_output, names, bin_search)
 						
 							
 if __name__ == '__main__':

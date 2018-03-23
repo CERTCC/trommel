@@ -1,8 +1,6 @@
-
 import magic
 import re
 import os
-from itertools import count
 
 from indicator_config import *
 
@@ -11,7 +9,7 @@ from lib.core.methods import *
 from lib.core.search import Search
 
 #Function to search for keywords in file. Writes keyword, file name, number hits in file
-def read_search_kw(ff, keyword, trommel_output):
+def read_search_kw(ff, keyword, trommel_output, bin_search):
 	try:
 		with open (ff, 'r') as keyword_search:
 			text = keyword_search.read()
@@ -19,7 +17,7 @@ def read_search_kw(ff, keyword, trommel_output):
 			if hits:
 				magic_mime = magic.from_file(ff, mime=True)
 				magic_hit = re.search(mime_kw, magic_mime, re.I)
-				if magic_hit:
+				if magic_hit and bin_search is True:
 					offset_list = []
 					for m in re.finditer(keyword, text, re.I):
 						offset_list.append(m.start())
@@ -30,7 +28,7 @@ def read_search_kw(ff, keyword, trommel_output):
 		pass
 
 #Function to search for keywords in file (case sensitive). Writes keyword, file name, number hits in file
-def read_search_case_kw(ff, keyword, trommel_output):
+def read_search_case_kw(ff, keyword, trommel_output, bin_search):
 	try:	
 		with open (ff, 'r') as keyword_search:
 			text = keyword_search.read()
@@ -38,7 +36,7 @@ def read_search_case_kw(ff, keyword, trommel_output):
 			if hits:
 				magic_mime = magic.from_file(ff, mime=True)
 				magic_hit = re.search(mime_kw, magic_mime, re.I)
-				if magic_hit:
+				if magic_hit and bin_search is True:
 					offset_list = []
 					for m in re.finditer(keyword, text):
 						offset_list.append(m.start())
@@ -120,7 +118,7 @@ def check_arch(ff, trommel_output):
 
 
 #Main function 	
-def kw(ff, trommel_output, names):
+def kw(ff, trommel_output, names, bin_search):
 	
 	bb_bin = '/bin/%s' % busybox_bin
 	if bb_bin in ff:
@@ -212,12 +210,12 @@ def kw(ff, trommel_output, names):
 		trommel_output.write("An id_ecdsa file: %s\n" % ff)
 	if id_ed25519_file in ff:
 		trommel_output.write("An id_ed25519 file: %s\n" % ff)
-	read_search_kw(ff, id_dsa_file, trommel_output)
-	read_search_kw(ff, host_key_file, trommel_output)
-	read_search_kw(ff, auth_key_file, trommel_output)
-	read_search_kw(ff, id_rsa_file, trommel_output)	
-	read_search_kw(ff, id_ecdsa_file, trommel_output)
-	read_search_kw(ff, id_ed25519_file, trommel_output)
+	read_search_kw(ff, id_dsa_file, trommel_output, bin_search)
+	read_search_kw(ff, host_key_file, trommel_output, bin_search)
+	read_search_kw(ff, auth_key_file, trommel_output, bin_search)
+	read_search_kw(ff, id_rsa_file, trommel_output, bin_search)	
+	read_search_kw(ff, id_ecdsa_file, trommel_output, bin_search)
+	read_search_kw(ff, id_ed25519_file, trommel_output, bin_search)
 
 	#Search for SSL related files - filenames: *.pem, *.crt, *.cer, *.p7b, *.p12, *.key
 	if pem in ff:
@@ -237,22 +235,22 @@ def kw(ff, trommel_output, names):
 
 
 	#Search for keyword of interest within files
-	read_search_kw(ff, upgrade_kw, trommel_output)
-	read_search_kw(ff, admin_kw, trommel_output)
-	read_search_kw(ff, root_kw, trommel_output)
-	read_search_kw(ff, password_kw, trommel_output)
-	read_search_kw(ff, passwd_kw, trommel_output)
-	read_search_kw(ff, pwd_kw, trommel_output)
-	read_search_kw(ff, dropbear_kw, trommel_output)
-	read_search_kw(ff, ssl_kw, trommel_output)
-	read_search_kw(ff, telnet_kw, trommel_output)
-	read_search_kw(ff, crypt_kw, trommel_output)
-	read_search_kw(ff, auth_kw, trommel_output)
-	read_search_kw(ff, sql_kw, trommel_output)
-	read_search_kw(ff, passphrase_kw, trommel_output)
-	read_search_kw(ff, rsa_key_pair, trommel_output)
-	read_search_kw(ff, secretkey_kw, trommel_output)
-	read_search_kw(ff, ssh_hot_keys, trommel_output)
+	read_search_kw(ff, upgrade_kw, trommel_output, bin_search)
+	read_search_kw(ff, admin_kw, trommel_output, bin_search)
+	read_search_kw(ff, root_kw, trommel_output, bin_search)
+	read_search_kw(ff, password_kw, trommel_output, bin_search)
+	read_search_kw(ff, passwd_kw, trommel_output, bin_search)
+	read_search_kw(ff, pwd_kw, trommel_output, bin_search)
+	read_search_kw(ff, dropbear_kw, trommel_output, bin_search)
+	read_search_kw(ff, ssl_kw, trommel_output, bin_search)
+	read_search_kw(ff, telnet_kw, trommel_output, bin_search)
+	read_search_kw(ff, crypt_kw, trommel_output, bin_search)
+	read_search_kw(ff, auth_kw, trommel_output, bin_search)
+	read_search_kw(ff, sql_kw, trommel_output, bin_search)
+	read_search_kw(ff, passphrase_kw, trommel_output, bin_search)
+	read_search_kw(ff, rsa_key_pair, trommel_output, bin_search)
+	read_search_kw(ff, secretkey_kw, trommel_output, bin_search)
+	read_search_kw(ff, ssh_hot_keys, trommel_output, bin_search)
 
 
 	#Search for keywords "private key", IP addresses, URLs, and email addresses
@@ -264,7 +262,7 @@ def kw(ff, trommel_output, names):
 			if hits:
 				magic_mime = magic.from_file(ff, mime=True)
 				magic_hit = re.search(mime_kw, magic_mime, re.I)
-				if magic_hit:
+				if magic_hit and bin_search is True:
 					offset_list = []
 					for m in re.finditer(private_key_kw, text, re.I):
 						offset_list.append(m.start())
@@ -281,7 +279,7 @@ def kw(ff, trommel_output, names):
 			if hits:
 				magic_mime = magic.from_file(ff, mime=True)
 				magic_hit = re.search(mime_kw, magic_mime, re.I)
-				if magic_hit:
+				if magic_hit and bin_search is True:
 					offset_list = []
 					for m in re.finditer(ipaddr, text, re.S):
 						offset_list.append(m.start())
@@ -299,7 +297,7 @@ def kw(ff, trommel_output, names):
 			for h in hits:
 				magic_mime = magic.from_file(ff, mime=True)
 				magic_hit = re.search(mime_kw, magic_mime, re.I)
-				if magic_hit:
+				if magic_hit and bin_search is True:
 					offset_list = []
 					for m in re.finditer(urls, text, re.S):
 						offset_list.append(m.start())
@@ -316,7 +314,7 @@ def kw(ff, trommel_output, names):
 			for h in hits:
 				magic_mime = magic.from_file(ff, mime=True)
 				magic_hit = re.search(mime_kw, magic_mime, re.I)
-				if magic_hit:
+				if magic_hit and bin_search is True:
 					trommel_output.write("Non-Plain Text File, Keyword Email Address: '%s', File: %s" % (h, ff))
 				else:
 					trommel_output.write("Plain Text File, Keyword Email Address: %s, File: %s\n" % (h, ff))
@@ -330,7 +328,7 @@ def kw(ff, trommel_output, names):
 			if hits:
 				magic_mime = magic.from_file(ff, mime=True)
 				magic_hit = re.search(mime_kw, magic_mime, re.I)
-				if magic_hit:
+				if magic_hit and bin_search is True:
 					offset_list = []
 					for m in re.finditer(secret_key_kw, text, re.I):
 						offset_list.append(m.start())
@@ -350,7 +348,7 @@ def kw(ff, trommel_output, names):
 	if shell_script in ff:
 		magic_mime = magic.from_file(ff, mime=True)
 		magic_hit = re.search(mime_kw, magic_mime, re.I)
-		if magic_hit:
+		if magic_hit and bin_search is True:
 			trommel_output.write("Non-Plain Text File, A shell script, File: %s\n" % (ff))
 		else:
 			trommel_output.write("Plain Text File, A shell script, File: %s\n" % (ff))
@@ -379,7 +377,7 @@ def kw(ff, trommel_output, names):
 	if config_1 in ff:
 		magic_mime = magic.from_file(ff, mime=True)
 		magic_hit = re.search(mime_kw, magic_mime, re.I)
-		if magic_hit:
+		if magic_hit and bin_search is True:
 			trommel_output.write("Non-Plain Text File, A configuration file (.conf), File: %s\n" % (ff))
 		else:
 			trommel_output.write("Plain Text File, A configuration file (.conf), File: %s\n" % (ff))
@@ -387,7 +385,7 @@ def kw(ff, trommel_output, names):
 	if config_2 in ff:
 		magic_mime = magic.from_file(ff, mime=True)
 		magic_hit = re.search(mime_kw, magic_mime, re.I)
-		if magic_hit:
+		if magic_hit and bin_search is True:
 			trommel_output.write("Non-Plain Text File, A configuration file (.cfg), File: %s\n" % (ff))
 		else:
 			trommel_output.write("Plain Text File, A configuration file (.cfg), File: %s\n" % (ff))
@@ -396,7 +394,7 @@ def kw(ff, trommel_output, names):
 	if config_3 in ff:
 		magic_mime = magic.from_file(ff, mime=True)
 		magic_hit = re.search(mime_kw, magic_mime, re.I)
-		if magic_hit:
+		if magic_hit and bin_search is True:
 			trommel_output.write("Non-Plain Text File, A configuration file (.ini), File: %s\n" % (ff))
 		else:
 			trommel_output.write("Plain Text File, A configuration file (.ini), File: %s\n" % (ff))
@@ -407,7 +405,7 @@ def kw(ff, trommel_output, names):
 	if db_file in ff:
 		magic_mime = magic.from_file(ff, mime=True)
 		magic_hit = re.search(mime_kw, magic_mime, re.I)
-		if magic_hit:
+		if magic_hit and bin_search is True:
 			trommel_output.write("Non-Plain Text File, A database file (.db), File: %s\n" % (ff))
 		else:
 			trommel_output.write("Plain Text File,  A database file (.db), File: %s\n" % (ff))
@@ -415,7 +413,7 @@ def kw(ff, trommel_output, names):
 	if sqlite_file in ff:
 		magic_mime = magic.from_file(ff, mime=True)
 		magic_hit = re.search(mime_kw, magic_mime, re.I)
-		if magic_hit:
+		if magic_hit and bin_search is True:
 			trommel_output.write("Non-Plain Text File, A database file (.sqlite), File: %s\n" % (ff))
 		else:
 			trommel_output.write("Plain Text File,  A database file (.sqlite), File: %s\n" % (ff))
@@ -423,7 +421,7 @@ def kw(ff, trommel_output, names):
 	if sql_file in ff:
 		magic_mime = magic.from_file(ff, mime=True)
 		magic_hit = re.search(mime_kw, magic_mime, re.I)
-		if magic_hit:
+		if magic_hit and bin_search is True:
 			trommel_output.write("Non-Plain Text File, A database file (.sql), File: %s\n" % (ff))
 		else:
 			trommel_output.write("Plain Text File,  A database file (.sql), File: %s\n" % (ff))
@@ -435,24 +433,24 @@ def kw(ff, trommel_output, names):
 	#WebApp specific - PHP, Javascript, VBScript, Lua
 	#PHP untrusted user input functions
 	if php_fn in ff:
-		read_search_case_kw(ff, php_server_func, trommel_output)
-		read_search_case_kw(ff, php_get_func, trommel_output)
-		read_search_case_kw(ff, php_post_func, trommel_output)
-		read_search_case_kw(ff, php_request_func, trommel_output)
-		read_search_case_kw(ff, php_files_func, trommel_output)
-		read_search_case_kw(ff, php_cookie_func, trommel_output)	
-		read_search_case_kw(ff, php_split_kw, trommel_output)
+		read_search_case_kw(ff, php_server_func, trommel_output, bin_search)
+		read_search_case_kw(ff, php_get_func, trommel_output, bin_search)
+		read_search_case_kw(ff, php_post_func, trommel_output, bin_search)
+		read_search_case_kw(ff, php_request_func, trommel_output, bin_search)
+		read_search_case_kw(ff, php_files_func, trommel_output, bin_search)
+		read_search_case_kw(ff, php_cookie_func, trommel_output, bin_search)	
+		read_search_case_kw(ff, php_split_kw, trommel_output, bin_search)
 
 		#PHP SQL related results
-		read_search_case_kw(ff, php_sql_com1, trommel_output)
-		read_search_case_kw(ff, php_sql_com2, trommel_output)
-		read_search_case_kw(ff, php_sql_com3, trommel_output)
+		read_search_case_kw(ff, php_sql_com1, trommel_output, bin_search)
+		read_search_case_kw(ff, php_sql_com2, trommel_output, bin_search)
+		read_search_case_kw(ff, php_sql_com3, trommel_output, bin_search)
 
 		#PHP shell injection function.
-		read_search_kw(ff, php_shellexec_func, trommel_output)
-		read_search_kw(ff, php_exec_func, trommel_output)
-		read_search_kw(ff, php_passthru_func, trommel_output)
-		read_search_kw(ff, php_system_func, trommel_output)
+		read_search_kw(ff, php_shellexec_func, trommel_output, bin_search)
+		read_search_kw(ff, php_exec_func, trommel_output, bin_search)
+		read_search_kw(ff, php_passthru_func, trommel_output, bin_search)
+		read_search_kw(ff, php_system_func, trommel_output, bin_search)
 
 	#Javascript	functions of interest
 	try:
@@ -460,53 +458,53 @@ def kw(ff, trommel_output, names):
 			text = js_file.read()
 			hits = re.findall(script_word, text, re.S)
 			if hits:
-				read_search_kw(ff, alert_kw, trommel_output)
-				read_search_kw(ff, src_kw, trommel_output)
-				read_search_kw(ff, script_kw, trommel_output)
-				read_search_kw(ff, script1_kw, trommel_output)
-				read_search_case_kw(ff, doc_url_kw, trommel_output)
-				read_search_case_kw(ff, doc_loc_kw, trommel_output)
-				read_search_case_kw(ff, doc_referrer_kw, trommel_output)
-				read_search_case_kw(ff, win_loc_kw, trommel_output)
-				read_search_case_kw(ff, doc_cookies_kw, trommel_output)
-				read_search_case_kw(ff, eval_kw, trommel_output)
-				read_search_case_kw(ff, settimeout_kw, trommel_output)
-				read_search_case_kw(ff, setinterval_kw, trommel_output)
-				read_search_case_kw(ff, loc_assign_kw, trommel_output)
-				read_search_case_kw(ff, nav_referrer_kw, trommel_output)
-				read_search_case_kw(ff, win_name_kw, trommel_output)
+				read_search_kw(ff, alert_kw, trommel_output, bin_search)
+				read_search_kw(ff, src_kw, trommel_output, bin_search)
+				read_search_kw(ff, script_kw, trommel_output, bin_search)
+				read_search_kw(ff, script1_kw, trommel_output, bin_search)
+				read_search_case_kw(ff, doc_url_kw, trommel_output, bin_search)
+				read_search_case_kw(ff, doc_loc_kw, trommel_output, bin_search)
+				read_search_case_kw(ff, doc_referrer_kw, trommel_output, bin_search)
+				read_search_case_kw(ff, win_loc_kw, trommel_output, bin_search)
+				read_search_case_kw(ff, doc_cookies_kw, trommel_output, bin_search)
+				read_search_case_kw(ff, eval_kw, trommel_output, bin_search)
+				read_search_case_kw(ff, settimeout_kw, trommel_output, bin_search)
+				read_search_case_kw(ff, setinterval_kw, trommel_output, bin_search)
+				read_search_case_kw(ff, loc_assign_kw, trommel_output, bin_search)
+				read_search_case_kw(ff, nav_referrer_kw, trommel_output, bin_search)
+				read_search_case_kw(ff, win_name_kw, trommel_output, bin_search)
 	except IOError:
 		pass
 
 	#VBScript presence
-	read_search_kw(ff, vbscript_kw, trommel_output)
+	read_search_kw(ff, vbscript_kw, trommel_output, bin_search)
 
 	#Lua script functions of interest
 	if lua_fn in ff:
-		read_search_lua_kw(ff, lua_get, trommel_output)
-		read_search_lua_kw(ff, lua_cgi_query, trommel_output)
-		read_search_lua_kw(ff, lua_cgi_post, trommel_output)
-		read_search_lua_kw(ff, lua_print, trommel_output)
-		read_search_lua_kw(ff, lua_iowrite, trommel_output)
-		read_search_lua_kw(ff, lua_ioopen, trommel_output)
-		read_search_lua_kw(ff, lua_cgi_put, trommel_output)
-		read_search_lua_kw(ff, lua_cgi_handhelp, trommel_output)
-		read_search_lua_kw(ff, lua_execute, trommel_output)
-		read_search_lua_kw(ff, lua_strcat, trommel_output)
-		read_search_lua_kw(ff, lua_htmlentities, trommel_output)
-		read_search_lua_kw(ff, lua_htmlspecialchars, trommel_output)
-		read_search_lua_kw(ff, lua_htmlescape, trommel_output)
-		read_search_lua_kw(ff, lua_htmlentitydecode, trommel_output)
-		read_search_lua_kw(ff, lua_htmlunescape, trommel_output)
-		read_search_lua_kw(ff, lua_iopopen, trommel_output)
-		read_search_lua_kw(ff, lua_escapeshellarg, trommel_output)
-		read_search_lua_kw(ff, lua_unescapeshellarg, trommel_output)
-		read_search_lua_kw(ff, lua_escapeshellcmd, trommel_output)
-		read_search_lua_kw(ff, lua_unescapeshellcmd, trommel_output)
-		read_search_lua_kw(ff, lua_fhupo, trommel_output)
-		read_search_lua_kw(ff, lua_fhpo, trommel_output)
-		read_search_lua_kw(ff, lua_fsppo, trommel_output)
-		read_search_lua_kw(ff, lua_ntopreaddir, trommel_output)
+		read_search_lua_kw(ff, lua_get, trommel_output, bin_search)
+		read_search_lua_kw(ff, lua_cgi_query, trommel_output, bin_search)
+		read_search_lua_kw(ff, lua_cgi_post, trommel_output, bin_search)
+		read_search_lua_kw(ff, lua_print, trommel_output, bin_search)
+		read_search_lua_kw(ff, lua_iowrite, trommel_output, bin_search)
+		read_search_lua_kw(ff, lua_ioopen, trommel_output, bin_search)
+		read_search_lua_kw(ff, lua_cgi_put, trommel_output, bin_search)
+		read_search_lua_kw(ff, lua_cgi_handhelp, trommel_output, bin_search)
+		read_search_lua_kw(ff, lua_execute, trommel_output, bin_search)
+		read_search_lua_kw(ff, lua_strcat, trommel_output, bin_search)
+		read_search_lua_kw(ff, lua_htmlentities, trommel_output, bin_search)
+		read_search_lua_kw(ff, lua_htmlspecialchars, trommel_output, bin_search)
+		read_search_lua_kw(ff, lua_htmlescape, trommel_output, bin_search)
+		read_search_lua_kw(ff, lua_htmlentitydecode, trommel_output, bin_search)
+		read_search_lua_kw(ff, lua_htmlunescape, trommel_output, bin_search)
+		read_search_lua_kw(ff, lua_iopopen, trommel_output, bin_search)
+		read_search_lua_kw(ff, lua_escapeshellarg, trommel_output, bin_search)
+		read_search_lua_kw(ff, lua_unescapeshellarg, trommel_output, bin_search)
+		read_search_lua_kw(ff, lua_escapeshellcmd, trommel_output, bin_search)
+		read_search_lua_kw(ff, lua_unescapeshellcmd, trommel_output, bin_search)
+		read_search_lua_kw(ff, lua_fhupo, trommel_output, bin_search)
+		read_search_lua_kw(ff, lua_fhpo, trommel_output, bin_search)
+		read_search_lua_kw(ff, lua_fsppo, trommel_output, bin_search)
+		read_search_lua_kw(ff, lua_ntopreaddir, trommel_output, bin_search)
 
 
 	#Search library base name against CVE Community Edition Database
@@ -538,6 +536,3 @@ def kw(ff, trommel_output, names):
 				trommel_output.write("Found a file that contains a Android package/app name: %s : %s\n" % (ff, h))
 	except IOError:
 		pass
-
-
-	

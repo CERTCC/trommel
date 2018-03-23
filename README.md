@@ -20,20 +20,22 @@ TROMMEL identifies the following indicators related to:
 TROMMEL has also integrated [vFeed](https://vfeed.io/) which allows for further in-depth vulnerability analysis of identified indicators. <br />
 
 
-
 ## Dependencies
 * [Python-Magic](https://pypi.python.org/pypi/python-magic)
 * [vFeed Database](https://vfeed.io/pricing/) - For non-commercial use, register and download the Community Edition database
 
 
-## Usage
+# Usage
 ```
 $ trommel.py --help
 ```
-
-Output TROMMEL results to a file based on a given directory
+Output TROMMEL results to a file based on a given directory. By default, only searches plain text files.
 ```
 $ trommel.py -p /directory -o output_file
+```
+Output TROMMEL results to a file based on a given directory. Search both binary and plain text files.
+```
+$ trommel.py -p /directory -o output_file -b
 ```
 
 ## Notes

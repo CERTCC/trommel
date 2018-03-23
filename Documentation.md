@@ -1,5 +1,5 @@
 # TROMMEL Documentation
-* TROMMEL sifts through directories of files to identify indicators that may contain vulnerabilities. Specifically, TROMMEL identifies the following indicators: 
+* TROMMEL sifts through embedded device files to identify potential vulnerable indicators. Specifically, TROMMEL identifies the following indicators: 
 	* Secure Shell (SSH) key files
 	* Secure Socket Layer (SSL) key files
 	* Internet Protocol (IP) addresses
@@ -30,7 +30,7 @@
 
 # Handling Dependencies
 * Download TROMMEL
-* Download vFeed database from vFeed tool from https://vfeed.io/pricing/. 
+* Download vFeed Community Database from vFeed tool from https://vfeed.io/pricing/. 
 	* This database needs to be placed in the root of the working directory of TROMMEL.
 * Python-magic
 	* For Linux:
@@ -43,19 +43,20 @@
 ```
 $ trommel.py --help
 ```
-
-Output TROMMEL results to a file based on a given directory
+Output TROMMEL results to a file based on a given directory. By default, only searches plain text files.
 ```
 $ trommel.py -p /directory -o output_file
 ```
+Output TROMMEL results to a file based on a given directory. Search both binary and plain text files.
+```
+$ trommel.py -p /directory -o output_file -b
+```
 
 # Suggested usage:
-* The intended use of TROMMEL is to assist researchers during firmware analysis.
+* The intended use of TROMMEL is to assist researchers during firmware analysis to find potential vulnerabilities 
 * Once TROMMEL is installed, down a firmware binary
 * When applicable, extract file system using [binwalk](https://github.com/devttys0/binwalk)
 * Run TROMMEL on the extracted firmware file system
-* Review TROMMEL output file for potential vulnerabilities in the firmware
-
 
 
 

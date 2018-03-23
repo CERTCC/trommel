@@ -1,6 +1,18 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2018-03-23
+### Changed
+- Updated Documentation.md and README.md
+
+## 2018-03-22
+### Added
+- Added a argument to search binary files for indicators. By default it only searches plain text files.
+
+## 2018-03-21
+### Changed
+- Updated mime regex search string in indicator_config.py. Thanks to my colleague @woytek
+
 ## 2018-03-02
 ### Changed
 - Updated the description.
