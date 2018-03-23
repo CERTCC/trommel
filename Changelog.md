@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## 2018-03-23
 ### Changed
 - Updated Documentation.md and README.md
+- Updated indicators.py Busybox version regex search
 
 ## 2018-03-22
 ### Added
