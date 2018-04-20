@@ -5,6 +5,7 @@ import indicators
 import magic
 import re
 import indicator_config
+import sys
 
 parser = argparse.ArgumentParser(description= "TROMMEL: Sift Through Directories of Files to Identify Indicators That May Contain Vulnerabilities")
 parser.add_argument("-p","--path", required=True, help="Directory to Search")
@@ -28,6 +29,13 @@ trommel_output =  file(output+'_TROMMEL_'+yrmoday,'wt')
 
 #Main function		
 def main():
+	db_file = 'vfeed.db'
+	files = [f for f in os.listdir(os.getcwd()) if os.path.isfile(f)]
+	if db_file in files:
+		print 'Found vFeed database in working directory...continuing.'
+	else:
+		sys.exit('TROMMMEL quit. Please download & put the vFeed database in this working directory to continue.')
+	
 	#Print information to terminal
 	print "\nTROMMEL is working to sift through the directory of files.\nResults will be saved to '%s_TROMMEL_%s'\n" % (output, yrmoday)
 	
