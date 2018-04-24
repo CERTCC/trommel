@@ -9,6 +9,26 @@ from lib.core.methods import *
 from lib.core.search import Search
 
 #Function to search for keywords in file. Writes keyword, file name, number hits in file
+def user_search_kw(ff, keyword, bin_search):
+	try:
+		with open (ff, 'r') as keyword_search:
+			text = keyword_search.read()
+			hits = re.findall(keyword, text, re.I)
+			if hits:
+				magic_mime = magic.from_file(ff, mime=True)
+				magic_hit = re.search(mime_kw, magic_mime, re.I)
+				if magic_hit:
+					if bin_search is True:
+						offset_list = []
+						for m in re.finditer(keyword, text, re.I):
+							offset_list.append(m.start())
+						print ("Non-Plain Text File, Keyword: '%s', File: %s, Offset(s) in File: " % (keyword, ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
+				else:
+					print ("Plain Text File, Keyword: '%s', File: %s, Keyword Hits in File: %d\n" % (keyword, ff, len(hits)))
+	except IOError:
+		pass
+
+#Function to search for keywords in file. Writes keyword, file name, number hits in file
 def read_search_kw(ff, keyword, trommel_output, bin_search):
 	try:
 		with open (ff, 'r') as keyword_search:
@@ -110,12 +130,16 @@ def text_search(search_term, trommel_output):
 #Main function 	
 def kw(ff, trommel_output, names, bin_search):
 	
+	#Architecture check
 	bb_bin = '/bin/%s' % busybox_bin
 	if bb_bin in ff:
 		value = check_arch(ff, trommel_output)
 		trommel_output.write("Based on the binary 'busybox' the instruction set architecture is %s.\n" % value)
-
-			
+	
+	#Alert for potential 3rd party software
+	if opt_dir in ff:
+		trommel_output.write("The follow file was found in the /opt (i.e. 3rd party software) directory: %s.\n" % ff)
+		
 	#Search for binary files of interest
 	if ssh_bin in ff:
 		trommel_output.write("Non-Plain Text File, ssh binary file: %s\n" % ff)
@@ -245,7 +269,6 @@ def kw(ff, trommel_output, names, bin_search):
 
 
 	#Search for keywords "private key", IP addresses, URLs, and email addresses
-
 	try:
 		with open (ff, 'r') as privkey_keyword:
 			text = privkey_keyword.read()
@@ -334,11 +357,6 @@ def kw(ff, trommel_output, names, bin_search):
 	except IOError:
 		pass
 
-
-	#Search for files in /opt directory. This directory sometimes has specific files put there by the vendor. 
-	opt_dir_kw = "/opt"
-	if opt_dir_kw in ff:
-		trommel_output.write("A file is in the /opt directory: %s" % ff)
 
 	#Search for shell script files with .sh extension
 	if shell_script in ff:

@@ -15,6 +15,7 @@ def check_arch(ff, trommel_output):
 					if byte[5] == b'\x02' and byte[19] == key: 
 						return value
 
+opt_dir = '/opt/'
 
 passwd = 'passwd'
 shadow = 'shadow'

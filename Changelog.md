@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2018-04-24
+### Changed
+- Updated trommel.py to include one-off user specified keyword search
+- Updated indicators.py & indicator_config.py to include print off files in /opt directory
+
 ## 2018-04-20
 ### Changed 
 - Updated trommel.py to include a check for vFeed database. If doesn't exist, program exits.
