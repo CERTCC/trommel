@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2018-07-20
+### Added
+- Updated trommel.py to include output directory location for results file
+- Added more keywords to indicators_config.py
+- Added vFeed Snort and Nmap results capability
+- Separate output file for vFeed results
+
 ## 2018-04-24
 ### Changed
 - Updated trommel.py to include one-off user specified keyword search

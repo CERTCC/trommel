@@ -95,25 +95,35 @@ def metasploit_result(cve_term):
 	msf = CveExploit(cve_term).get_msf()
 	return msf
 
+def snort_result(cve_term):
+	snort = CveRules(cve_term).get_snort()
+	return snort
+	
+def nmap_result(cve_term):
+	nmap = CveScanners(cve_term).get_nmap()
+	return nmap
+
 #Function to text search in CVE Community Edition Database
-def text_search(search_term, trommel_output):
+def text_search(search_term, trommel_vfeed_output):
 	search_text = Search(search_term).text()
 	cve_field = re.findall(r'CVE-\d+-\d+', search_text, re.S)
 	if search_text is not "null":
 		cve_hit = '"(CVE-\d+-\d+ : .*\.)"'
 		name_hit = re.findall(cve_hit, search_text)
 		for match_hit in name_hit:
-			trommel_output.write("Found %s and it has been associated with %s\n" % (search_term, match_hit))
+			trommel_vfeed_output.write("Found %s and it has been associated with %s\n" % (search_term, match_hit))
 	#Searches above CVE in Exploit-DB and Metasploit
 	for cve_hit in cve_field:
 		edb = exploitdb_result(cve_hit)
 		msf = metasploit_result(cve_hit)
+		snort = snort_result(cve_hit)
+		nmap = nmap_result(cve_hit)
 		#Exploit-DB result
 		if edb is not "null":
 			url_match = "http://www.exploit-db.com/exploits/\d{1,8}"
 			urls = re.findall(url_match, edb, re.S)
 			for url_hit in urls:
-				trommel_output.write("%s has a known exploit: %s\n" % (cve_hit, url_hit))
+				trommel_vfeed_output.write("%s has a known exploit: %s\n" % (cve_hit, url_hit))
 		#Metasploit results
 		if msf is not "null":
 			msf_fname = "metasploit-framework/modules/.*\.rb"
@@ -122,13 +132,26 @@ def text_search(search_term, trommel_output):
 			msf_title_match = re.findall(msf_title, msf)
 			for match in msf_fn_match:
 				for match2 in msf_title_match:
-					trommel_output.write("%s is associated with the following Metasploit Module: %s - %s\n" % (cve_hit, match2, match))
+					trommel_vfeed_output.write("%s is associated with the following Metasploit Module: %s - %s\n" % (cve_hit, match2, match))
+		#Snort results
+		if snort is not "null":
+			snort_sid = 'id": "sid:(.*)'
+			snort_sid_match = re.findall(snort_sid, snort)
+			for match in snort_sid_match:
+				trommel_vfeed_output.write("%s is associated with the Snort sid:%s" % (cve_hit, match))
+		
+		#Nmap results
+		if nmap is not "null":
+			nmap_script = '"file": "(.*)",'
+			nmap_script_match = re.findall(nmap_script, nmap)
+			for match in nmap_script_match:
+				trommel_vfeed_output.write("%s is associated with the Nmap script: %s" % (cve_hit, match))		
 
 
 
 
 #Main function 	
-def kw(ff, trommel_output, names, bin_search):
+def kw(ff, trommel_output, trommel_vfeed_output, names, bin_search):
 	
 	#Architecture check
 	bb_bin = '/bin/%s' % busybox_bin
@@ -158,7 +181,7 @@ def kw(ff, trommel_output, names, bin_search):
 			drop_hit = re.search(drop_term, text)
 			if drop_hit:
 				trommel_output.write("The Dropbear (late 2011 or newer) binary found is %s [may need to emulate environment]\n" % drop_hit.group())
-		text_search(dropbear_bin, trommel_output)
+		text_search(dropbear_bin, trommel_vfeed_output)
 	if telnet_bin in ff:
 		trommel_output.write("Non-Plain Text File, telnet binary file: %s\n" % ff)
 	if telnetd_bin in ff:
@@ -172,7 +195,7 @@ def kw(ff, trommel_output, names, bin_search):
 			bb_hit = re.search(bb_term, text)
 			if bb_hit:
 				trommel_output.write("The BusyBox binary found is %s [may need to emulate environment]\n" % bb_hit.group())
-		text_search(busybox_bin, trommel_output)
+		text_search(busybox_bin, trommel_vfeed_output)
 	if other_bins in ff:
 		trommel_output.write("Non-Plain Text File, .bin file: %s\n" % ff)
 	
@@ -266,6 +289,10 @@ def kw(ff, trommel_output, names, bin_search):
 	read_search_kw(ff, rsa_key_pair, trommel_output, bin_search)
 	read_search_kw(ff, secretkey_kw, trommel_output, bin_search)
 	read_search_kw(ff, ssh_hot_keys, trommel_output, bin_search)
+	
+	read_search_kw(ff, username_kw, trommel_output, bin_search)
+	read_search_kw(ff, secret_kw, trommel_output, bin_search)
+	read_search_kw(ff, shell_kw, trommel_output, bin_search)
 
 
 	#Search for keywords "private key", IP addresses, URLs, and email addresses
@@ -528,7 +555,7 @@ def kw(ff, trommel_output, names, bin_search):
 		if base_name is not None:
 			m = base_name.group()
 			mm = m + ".so"
-			text_search(mm, trommel_output)
+			text_search(mm, trommel_vfeed_output)
 
 
 	#Search specific content related decompress and decompiled Android APKs

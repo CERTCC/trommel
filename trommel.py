@@ -2,8 +2,6 @@ import argparse
 import os
 from datetime import datetime
 import indicators
-import magic
-import re
 import indicator_config
 import sys
 import time
@@ -13,6 +11,7 @@ parser.add_argument("-p","--path", required=True, help="Directory to Search")
 parser.add_argument("-o","--output", default='Unspecified_Name', help="Output TROMMEL Results File Name (no spaces)")
 parser.add_argument("-b","--binary", action='store_true', help="Search in Binary Files")
 parser.add_argument("-s","--search", help="User specificed Keyword Search")
+parser.add_argument("-d","--dir", required=True, help="Directory to Write Output TROMMEL Results")
 
 args = vars(parser.parse_args())
 
@@ -20,6 +19,7 @@ path = args['path']
 output = args['output']
 bin_search = args['binary']
 user_search = args['search']
+dir_output = args['dir']
 
 
 #Main function		
@@ -52,10 +52,12 @@ def main():
 		yrmoday = datetime.now().strftime("%Y%m%d_%H%M%S")
 
 		#Save file name and date information to file in working directory script
-		trommel_output =  file(output+'_TROMMEL_'+yrmoday,'wt')
+		trommel_output =  file(dir_output + output+'_TROMMEL_'+yrmoday,'w')
+		
+		trommel_vfeed_output = file("TROMMEL_vFeed_Results_"+yrmoday, 'w')
 		
 		#Print information to terminal
-		print "\nTROMMEL is working to sift through the directory of files.\nResults will be saved to '%s_TROMMEL_%s'\n" % (output, yrmoday)
+		print "\nTROMMEL is working to sift through the directory of files.\n\nResults will be saved to '%s_TROMMEL_%s'.\nvFeed results will be saved to 'TROMMEL_vFeed_Results_%s'.\n" % (output, yrmoday,yrmoday)
 	
 		
 		#Title written to file
@@ -100,7 +102,7 @@ def main():
 					if not dev_kw in ff:
 					
 						if path and output: 
-							indicators.kw(ff, trommel_output, names, bin_search)
+							indicators.kw(ff, trommel_output, trommel_vfeed_output, names, bin_search)
 						
 							
 if __name__ == '__main__':

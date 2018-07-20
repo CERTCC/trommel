@@ -66,6 +66,11 @@ rsa_key_pair = "rsakeypair"
 secretkey_kw = "secretkey"
 ssh_hot_keys = "sshhostkeys"
 
+username_kw = "username"
+secret_kw = "secret"
+shell_kw = "shell"
+
+
 mime_kw = 'x-executable|x-sharedlib|octet-stream|x-object'
 
 private_key_kw = "private.*key"
