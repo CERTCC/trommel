@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2018-07-23
+### Changed
+- Improved formatting for output file for vFeed results
+
 ## 2018-07-20
 ### Added
 - Updated trommel.py to include output directory location for results file

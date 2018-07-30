@@ -51,7 +51,7 @@ $ trommel.py -p /directory -o output_file -d output_file_dir
 ```
 Output TROMMEL results to a file based on a given directory. Search both binary and plain text files.
 ```
-$ trommel.py -p /directory -o output_file -b -d output_file_dir
+$ trommel.py -p /directory -o output_file -d output_file_dir -b 
 ```
 
 # Suggested usage:

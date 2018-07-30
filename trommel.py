@@ -54,10 +54,10 @@ def main():
 		#Save file name and date information to file in working directory script
 		trommel_output =  file(dir_output + output+'_TROMMEL_'+yrmoday,'w')
 		
-		trommel_vfeed_output = file("TROMMEL_vFeed_Results_"+yrmoday, 'w')
+		trommel_vfeed_output = file(dir_output + output + "_TROMMEL_vFeed_Results_"+yrmoday, 'w')
 		
 		#Print information to terminal
-		print "\nTROMMEL is working to sift through the directory of files.\n\nResults will be saved to '%s_TROMMEL_%s'.\nvFeed results will be saved to 'TROMMEL_vFeed_Results_%s'.\n" % (output, yrmoday,yrmoday)
+		print "\nTROMMEL is working to sift through the directory of files.\n\nResults will be saved to '%s_TROMMEL_%s'.\nvFeed results will be saved to '%s_TROMMEL_vFeed_Results_%s'.\n" % (output, yrmoday,output,yrmoday)
 	
 		
 		#Title written to file
@@ -71,18 +71,36 @@ def main():
 																																							  
 
 	''')
+		#Title written to file
+		trommel_vfeed_output.write('''
+
+	 :::==== :::====  :::====  :::=======  :::=======  :::===== :::     
+	 :::==== :::  === :::  === ::: === === ::: === === :::      :::     
+	   ===   =======  ===  === === === === === === === ======   ===     
+	   ===   === ===  ===  === ===     === ===     === ===      ===     
+	   ===   ===  ===  ======  ===     === ===     === ======== ========
+																																							  
+
+	''')
 	
 		#User given name and path to user given directory to search
 		trommel_output.write("TROMMEL Results File Name: %s\nDirectory: %s\n" % (output,path))
-	
+		#User given name and path to user given directory to search
+		trommel_vfeed_output.write("TROMMEL Results File Name: %s\nDirectory: %s\n" % (output,path))
+		
 		#Count number of files within given path directory
 		total = 0
 		for root, dirs, files in os.walk(path, followlinks=False):
 			total += len(files)
 		trommel_output.write("There are %d total files within the directory.\n\n" % total)
-	
+		trommel_vfeed_output.write("There are %d total files within the directory.\n\n" % total)
+		
 		#Disclaimer written to output file
 		trommel_output.write("Results could be vulnerabilities. These results should be verified as false positives may exist.\n\n")
+		trommel_vfeed_output.write("Results could be vulnerabilities. These results should be verified as false positives may exist.\n\n")
+		
+		#vFeed output file disclaimer
+		trommel_vfeed_output.write("The following are results when pivoting specific indicators on vFeed's Community Database.\n\n")
 		
 		#Enumerate dir passed by user
 		for root, dirs, files in os.walk(path):
