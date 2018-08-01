@@ -29,7 +29,6 @@ TROMMEL was written with the intent to help with identifying indicators that may
 
 [![Arsenal](https://github.com/toolswatch/badges/blob/master/arsenal/usa/2018.svg)](https://www.blackhat.com/us-18/arsenal/schedule/index.html#trommel---arsenal-theater-demo-10456)
 
-Check the valid links and badges in **badge**
 
 ### Popularity
 
