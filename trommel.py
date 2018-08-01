@@ -5,6 +5,7 @@ import indicators
 import indicator_config
 import sys
 import time
+import hashlib
 
 parser = argparse.ArgumentParser(description= "TROMMEL: Sift Through Directories of Files to Identify Indicators That May Contain Vulnerabilities")
 parser.add_argument("-p","--path", required=True, help="Directory to Search")
@@ -27,7 +28,7 @@ def main():
 	db_file = 'vfeed.db'
 	files = [f for f in os.listdir(os.getcwd()) if os.path.isfile(f)]
 	if db_file in files:
-		print 'Found vFeed database in working directory...continuing.'
+		print '\nFound vFeed database in working directory...continuing.'
 	else:
 		sys.exit('TROMMMEL quit. Please download & put the vFeed database in this working directory to continue.')
 	
@@ -56,9 +57,12 @@ def main():
 		
 		trommel_vfeed_output = file(dir_output + output + "_TROMMEL_vFeed_Results_"+yrmoday, 'w')
 		
+		trommel_hash_ouput = file(dir_output + output + "_TROMMEL_Hash_Results_"+yrmoday, 'w')
+		
 		#Print information to terminal
-		print "\nTROMMEL is working to sift through the directory of files.\n\nResults will be saved to '%s_TROMMEL_%s'.\nvFeed results will be saved to '%s_TROMMEL_vFeed_Results_%s'.\n" % (output, yrmoday,output,yrmoday)
-	
+		print "\nTROMMEL is working to sift through the directory of files.\n\nResults will be saved to '%s_TROMMEL_%s'.\n\nvFeed results will be saved to '%s_TROMMEL_vFeed_Results_%s'.\n" % (output, yrmoday,output,yrmoday)
+		
+		print "TROMMEL file hashes will be saved to '%s_TROMMEL_Hash_Results_%s'\n" % (output, yrmoday)
 		
 		#Title written to file
 		trommel_output.write('''
@@ -83,6 +87,19 @@ def main():
 
 	''')
 	
+		#Title written to file
+		trommel_hash_ouput.write('''
+
+	 :::==== :::====  :::====  :::=======  :::=======  :::===== :::     
+	 :::==== :::  === :::  === ::: === === ::: === === :::      :::     
+	   ===   =======  ===  === === === === === === === ======   ===     
+	   ===   === ===  ===  === ===     === ===     === ===      ===     
+	   ===   ===  ===  ======  ===     === ===     === ======== ========
+																																							  
+
+	''')
+	
+	
 		#User given name and path to user given directory to search
 		trommel_output.write("TROMMEL Results File Name: %s\nDirectory: %s\n" % (output,path))
 		#User given name and path to user given directory to search
@@ -94,6 +111,7 @@ def main():
 			total += len(files)
 		trommel_output.write("There are %d total files within the directory.\n\n" % total)
 		trommel_vfeed_output.write("There are %d total files within the directory.\n\n" % total)
+		trommel_hash_ouput.write("There are %d total files within the directory.\n\n" % total)
 		
 		#Disclaimer written to output file
 		trommel_output.write("Results could be vulnerabilities. These results should be verified as false positives may exist.\n\n")
@@ -110,17 +128,28 @@ def main():
 			
 				if '/bin/busybox' in ff:
 					value = indicator_config.check_arch(ff, trommel_output)
-					print "Based on the binary 'busybox' the instruction set architecture is %s.\n" % value
-		
+					print "Based on the binary 'busybox' the instruction set architecture is %s.\n" % value	
+
 				#Ignore any symlinks
 				if not os.path.islink(ff):
-				
+
 					#Ignore the /dev directory. Script has problems with files in this directory
 					dev_kw = "/dev/"
 					if not dev_kw in ff:
 					
 						if path and output: 
 							indicators.kw(ff, trommel_output, trommel_vfeed_output, names, bin_search)
+						
+						#Hash files and save to own output file
+						try: 
+							with open(ff,"rb") as fhash:
+								bytes = fhash.read() # read entire file as bytes
+								md5_hash = hashlib.md5(bytes).hexdigest()
+								sha1_hash = hashlib.sha1(bytes).hexdigest()
+								sha256_hash = hashlib.sha256(bytes).hexdigest()
+								trommel_hash_ouput.write("File name: %s, Hashes: %s, %s, %s\n" % (ff, md5_hash, sha1_hash, sha256_hash))
+						except:
+							trommel_hash_ouput.write("The following file, %s, was not hashed." % ff)
 						
 							
 if __name__ == '__main__':
