@@ -21,7 +21,7 @@
 	* TROMMEL is working to sift through the files.
 	* Results will be saved to "[Researcher Supplied File Name]_Trommel_YYYYMMDD_HHMMSS".
 	* vFeed results will be saved to "[Researcher Supplied File Name]_TROMMEL_vFeed_Results_YYYYMMDD_HHMMSS".
-	* Hashes of files will be saved to [Researcher Supplied File Name]_TROMMEL_Hash_Results_YYYYMMDD_HHMMSS".
+	* Hashes of files will be saved to "[Researcher Supplied File Name]_TROMMEL_Hash_Results_YYYYMMDD_HHMMSS".
 	* Checks the architecture of the BusyBox binary. This is printed to the terminal and written to the results file.
 * The identified indicators are then saved to a text files (mentioned above) in the current working directory of TROMMEL if a user specified directory (-d option) is not specified.
 * The text file is named according to the above naming convention and will contain the following information preceding the identified indicators:
