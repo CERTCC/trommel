@@ -47,18 +47,28 @@ $ trommel.py --help
 ```
 Output TROMMEL results to a file based on a given directory. By default, only searches plain text files.
 ```
-$ trommel.py -p /directory -o output_file -d output_file_dir
+$ trommel.py -p /extracted_firmware_directory -o output_file -d output_file_dir
 ```
 Output TROMMEL results to a file based on a given directory. Search both binary and plain text files.
 ```
-$ trommel.py -p /directory -o output_file -d output_file_dir -b 
+$ trommel.py -p /extracted_firmware_directory -o output_file -d output_file_dir -b 
 ```
+One-off text search of directory
+```
+$ trommel.py -p /extracted_firmware_directory -s user_search_term 
+```
+One-off specialized search option of vFeed
+```
+$ trommel.py -p /extracted_firmware_directory -v user_search_term 
+```
+
 
 # Suggested usage:
 * The intended use of TROMMEL is to assist researchers during firmware analysis to find potential vulnerabilities 
-* Once TROMMEL is installed, down a firmware binary
-* When applicable, extract file system using [binwalk](https://github.com/devttys0/binwalk)
-* Run TROMMEL on the extracted firmware file system
+* Steps:
+	* Once TROMMEL is installed, down a firmware binary, extract the contents of the firmware binary to expose files/file system
+		* When applicable, extract firmware binary system using [binwalk](https://github.com/devttys0/binwalk)
+	* Run TROMMEL on the extracted firmware file system directory
 
 
 

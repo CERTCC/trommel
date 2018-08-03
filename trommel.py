@@ -13,7 +13,7 @@ parser.add_argument("-o","--output", default='Unspecified_Name', help="Output TR
 parser.add_argument("-b","--binary", action='store_true', help="Search in Binary Files")
 parser.add_argument("-s","--search", help="User specificed Keyword Search")
 parser.add_argument("-d","--dir", help="Directory to Write Output TROMMEL Results")
-parser.add_argument("-v","--vss", help="User Specialized Search of vFeed Database")
+parser.add_argument("-v","--vss", help="User Specialized Search of vFeed Database. i.e. Software Program Names")
 
 args = vars(parser.parse_args())
 
@@ -36,7 +36,6 @@ def main():
 	
 	if vss:
 		indicators.specialized_vfeed_search(vss)
-
 
 	elif user_search:
 		print 'TROMMEL is doing a one-off keyword search specified by the user. Results will be printed to stdout.'
