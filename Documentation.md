@@ -19,16 +19,18 @@
 * TROMMEL significantly lessens the manual analysis time of the researcher by automating much of the vulnerability discovery and analysis process. 
 * Upon execution, TROMMEL provides the following feedback to the researcher in the terminal:
 	* TROMMEL is working to sift through the files.
-	* Results will be saved to "[Researcher Supplied File Name]_Trommel_YYYYMMDD_HHMMSS"
-	* vFeed results will be saved to "TROMMEL_vFeed_Results_YYYYMMDD_HHMMSS"
+	* Results will be saved to "[Researcher Supplied File Name]_Trommel_YYYYMMDD_HHMMSS".
+	* vFeed results will be saved to "[Researcher Supplied File Name]_TROMMEL_vFeed_Results_YYYYMMDD_HHMMSS".
+	* Hashes of files will be saved to [Researcher Supplied File Name]_TROMMEL_Hash_Results_YYYYMMDD_HHMMSS".
 	* Checks the architecture of the BusyBox binary. This is printed to the terminal and written to the results file.
-* The identified indicators are then saved to a text file in the current working directory of TROMMEL. 
+* The identified indicators are then saved to a text files (mentioned above) in the current working directory of TROMMEL if a user specified directory (-d option) is not specified.
 * The text file is named according to the above naming convention and will contain the following information preceding the identified indicators:
 	* Trommel Results File Name: [Researcher Supplied File Name]
 	* Directory: [Researcher Supplied Directory]
 	* There are [Count of Files] total files within the directory.
 	* Results could be vulnerabilities. These results should be verified as false positives may exist.
-* The indicators should be reviewed to identify and remove false positives and to identify indicators that need further analysis for potential vulnerabilities. 
+* The indicators should be reviewed to identify and remove false positives and to identify indicators that need further analysis for potential vulnerabilities.
+	* I like to think that TROMMEL takes out "75%" of the work.
 
 # Handling Dependencies
 * Download TROMMEL
@@ -66,7 +68,7 @@ $ trommel.py -p /extracted_firmware_directory -v user_search_term
 # Suggested usage:
 * The intended use of TROMMEL is to assist researchers during firmware analysis to find potential vulnerabilities 
 * Steps:
-	* Once TROMMEL is installed, down a firmware binary, extract the contents of the firmware binary to expose files/file system
+	* Once TROMMEL is installed, down a firmware binary, extract the contents of the firmware binary to expose the files/file system
 		* When applicable, extract firmware binary system using [binwalk](https://github.com/devttys0/binwalk)
 	* Run TROMMEL on the extracted firmware file system directory
 
