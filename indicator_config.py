@@ -71,7 +71,7 @@ secret_kw = "secret"
 shell_kw = "shell"
 
 
-mime_kw = 'x-executable|x-sharedlib|octet-stream|x-object'
+mime_kw = 'x-executable|x-sharedlib|octet-stream|x-object|x-pie-executable'
 
 private_key_kw = "private.*key"
 ipaddr = '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'

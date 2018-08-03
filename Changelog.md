@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2018-08-03
+### Added 
+- Added one-off specialized search option of vFeed based off text_search function.
+
+## 2018-08-01
+### Added 
+- Added more mime type options
+
 ## 2018-08-01
 ### Added
 - Hashed each file in supplied directory and saved to its own results file

@@ -139,7 +139,6 @@ def text_search(search_term, trommel_vfeed_output):
 			snort_sid_match = re.findall(snort_sid, snort)
 			for match in snort_sid_match:
 				trommel_vfeed_output.write("%s is associated with the Snort sid:%s\n\n" % (cve_hit, match))
-		
 		#Nmap results
 		if nmap is not "null":
 			nmap_script = '"file": "(.*)",'
@@ -147,7 +146,47 @@ def text_search(search_term, trommel_vfeed_output):
 			for match in nmap_script_match:
 				trommel_vfeed_output.write("%s is associated with the Nmap script: %s\n\n" % (cve_hit, match))		
 
-
+def specialized_vfeed_search(search_term):
+	search_text = Search(search_term).text()
+	cve_field = re.findall(r'CVE-\d+-\d+', search_text, re.S)
+	if search_text is not "null":
+		cve_hit = '"(CVE-\d+-\d+ : .*\.)"'
+		name_hit = re.findall(cve_hit, search_text)
+		for match_hit in name_hit:
+			print "Found %s and it has been associated with %s\n\n" % (search_term, match_hit)
+	#Searches above CVE in Exploit-DB and Metasploit
+	for cve_hit in cve_field:
+		edb = exploitdb_result(cve_hit)
+		msf = metasploit_result(cve_hit)
+		snort = snort_result(cve_hit)
+		nmap = nmap_result(cve_hit)
+		#Exploit-DB result
+		if edb is not "null":
+			url_match = "http://www.exploit-db.com/exploits/\d{1,8}"
+			urls = re.findall(url_match, edb, re.S)
+			for url_hit in urls:
+				print "%s has a known exploit: %s\n\n" % (cve_hit, url_hit)
+		#Metasploit results
+		if msf is not "null":
+			msf_fname = "metasploit-framework/modules/.*\.rb"
+			msf_title = '"title": "(.*)"'
+			msf_fn_match = re.findall(msf_fname, msf) 
+			msf_title_match = re.findall(msf_title, msf)
+			for match in msf_fn_match:
+				for match2 in msf_title_match:
+					print "%s is associated with the following Metasploit Module: %s - %s\n\n" % (cve_hit, match2, match)
+		#Snort results
+		if snort is not "null":
+			snort_sid = 'id": "sid:(.*)'
+			snort_sid_match = re.findall(snort_sid, snort)
+			for match in snort_sid_match:
+				print "%s is associated with the Snort sid:%s\n\n" % (cve_hit, match)
+		#Nmap results
+		if nmap is not "null":
+			nmap_script = '"file": "(.*)",'
+			nmap_script_match = re.findall(nmap_script, nmap)
+			for match in nmap_script_match:
+				print "%s is associated with the Nmap script: %s\n\n" % (cve_hit, match)
 
 
 #Main function 	
