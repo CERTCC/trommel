@@ -17,7 +17,7 @@
 * vFeed offers a free, downloadable Community Database for non-commercial users. 
 * This integration allows for further in-depth vulnerability analysis of identified indicators. 
 * TROMMEL significantly lessens the manual analysis time of the researcher by automating much of the vulnerability discovery and analysis process. 
-* Upon execution, TROMMEL provides the following feedback to the researcher in the terminal:
+* Upon execution, TROMMEL provides the following feedback to the researcher in the terminal and writes 3 (parsable) results files:
 	* TROMMEL is working to sift through the files.
 	* Results will be saved to "User Supplied File Name"_Trommel_YYYYMMDD_HHMMSS.
 	* vFeed results will be saved to "User Supplied File Name"_TROMMEL_vFeed_Results_YYYYMMDD_HHMMSS.
@@ -30,7 +30,7 @@
 	* There are [Count of Files] total files within the directory.
 	* Results could be vulnerabilities. These results should be verified as false positives may exist.
 * The indicators should be reviewed to identify and remove false positives and to identify indicators that need further analysis for potential vulnerabilities.
-	* I like to think that TROMMEL takes out "75%" of the work.
+
 
 # Handling Dependencies
 * Download TROMMEL
