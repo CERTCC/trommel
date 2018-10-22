@@ -69,7 +69,7 @@ def read_search_case_kw(ff, keyword, trommel_output, bin_search):
 		pass
 
 #Function to search for keywords in file (case sensitive). Writes keyword, file name, number hits in file
-def read_search_lua_kw(ff, keyword, trommel_output):
+def read_search_lua_kw(ff, keyword, trommel_output, bin_search):
 	try:
 		with open (ff, 'r') as keyword_search:
 			text = keyword_search.read()
