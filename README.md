@@ -49,3 +49,6 @@ $ trommel.py -p /directory -o output_file -b
 * [vFeed](https://vfeed.io/)
 * [Firmwalker](https://github.com/craigz28/firmwalker)
 * [Lua Code: Security Overview and Practical Approaches to Static Analysis by Andrei Costin](http://firmware.re/lua/)
+
+## Author
+* Kyle O'Meara - komeara AT cert DOT org
