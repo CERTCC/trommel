@@ -1,6 +1,7 @@
 import magic
 import re
 import os
+import codecs
 
 from indicator_config import *
 
@@ -11,7 +12,7 @@ from lib.core.search import Search
 #Function to search for keywords in file. Writes keyword, file name, number hits in file
 def user_search_kw(ff, keyword, bin_search):
 	try:
-		with open (ff, 'r') as keyword_search:
+		with codecs.open(ff, 'r', encoding='utf-8', errors='ignore') as keyword_search:
 			text = keyword_search.read()
 			hits = re.findall(keyword, text, re.I)
 			if hits:
@@ -31,7 +32,7 @@ def user_search_kw(ff, keyword, bin_search):
 #Function to search for keywords in file. Writes keyword, file name, number hits in file
 def read_search_kw(ff, keyword, trommel_output, bin_search):
 	try:
-		with open (ff, 'r') as keyword_search:
+		with codecs.open(ff, 'r', encoding='utf-8', errors='ignore') as keyword_search:
 			text = keyword_search.read()
 			hits = re.findall(keyword, text, re.I)
 			if hits:
@@ -50,8 +51,8 @@ def read_search_kw(ff, keyword, trommel_output, bin_search):
 
 #Function to search for keywords in file (case sensitive). Writes keyword, file name, number hits in file
 def read_search_case_kw(ff, keyword, trommel_output, bin_search):
-	try:	
-		with open (ff, 'r') as keyword_search:
+	try:
+		with codecs.open(ff, 'r', encoding='utf-8', errors='ignore') as keyword_search:
 			text = keyword_search.read()
 			hits = re.findall(keyword, text)
 			if hits:
@@ -71,7 +72,7 @@ def read_search_case_kw(ff, keyword, trommel_output, bin_search):
 #Function to search for keywords in file (case sensitive). Writes keyword, file name, number hits in file
 def read_search_lua_kw(ff, keyword, trommel_output, bin_search):
 	try:
-		with open (ff, 'r') as keyword_search:
+		with codecs.open(ff, 'r', encoding='utf-8', errors='ignore') as keyword_search:
 			text = keyword_search.read()
 			hits = re.findall(keyword, text)
 			if hits:
@@ -83,7 +84,7 @@ def read_search_lua_kw(ff, keyword, trommel_output, bin_search):
 #Function to search CVEs in CVE Community Edition Database in CVE Community Edition Database
 def cve_search_func(cve_term):
 	found_cve = Search(cve_term).cve()
-	return found_cve		
+	return found_cve
 
 #Function to return Exploit DB association with CVE in CVE Community Edition Database
 def exploitdb_result(cve_term):
@@ -98,7 +99,7 @@ def metasploit_result(cve_term):
 def snort_result(cve_term):
 	snort = CveRules(cve_term).get_snort()
 	return snort
-	
+
 def nmap_result(cve_term):
 	nmap = CveScanners(cve_term).get_nmap()
 	return nmap
@@ -128,7 +129,7 @@ def text_search(search_term, trommel_vfeed_output):
 		if msf is not "null":
 			msf_fname = "metasploit-framework/modules/.*\.rb"
 			msf_title = '"title": "(.*)"'
-			msf_fn_match = re.findall(msf_fname, msf) 
+			msf_fn_match = re.findall(msf_fname, msf)
 			msf_title_match = re.findall(msf_title, msf)
 			for match in msf_fn_match:
 				for match2 in msf_title_match:
@@ -144,7 +145,7 @@ def text_search(search_term, trommel_vfeed_output):
 			nmap_script = '"file": "(.*)",'
 			nmap_script_match = re.findall(nmap_script, nmap)
 			for match in nmap_script_match:
-				trommel_vfeed_output.write("%s is associated with the Nmap script: %s\n\n" % (cve_hit, match))		
+				trommel_vfeed_output.write("%s is associated with the Nmap script: %s\n\n" % (cve_hit, match))
 
 def specialized_vfeed_search(search_term):
 	search_text = Search(search_term).text()
@@ -153,7 +154,7 @@ def specialized_vfeed_search(search_term):
 		cve_hit = '"(CVE-\d+-\d+ : .*\.)"'
 		name_hit = re.findall(cve_hit, search_text)
 		for match_hit in name_hit:
-			print "Found %s and it has been associated with %s\n\n" % (search_term, match_hit)
+			print ("Found %s and it has been associated with %s\n\n" % (search_term, match_hit))
 	#Searches above CVE in Exploit-DB and Metasploit
 	for cve_hit in cve_field:
 		edb = exploitdb_result(cve_hit)
@@ -165,43 +166,43 @@ def specialized_vfeed_search(search_term):
 			url_match = "http://www.exploit-db.com/exploits/\d{1,8}"
 			urls = re.findall(url_match, edb, re.S)
 			for url_hit in urls:
-				print "%s has a known exploit: %s\n\n" % (cve_hit, url_hit)
+				print ("%s has a known exploit: %s\n\n" % (cve_hit, url_hit))
 		#Metasploit results
 		if msf is not "null":
 			msf_fname = "metasploit-framework/modules/.*\.rb"
 			msf_title = '"title": "(.*)"'
-			msf_fn_match = re.findall(msf_fname, msf) 
+			msf_fn_match = re.findall(msf_fname, msf)
 			msf_title_match = re.findall(msf_title, msf)
 			for match in msf_fn_match:
 				for match2 in msf_title_match:
-					print "%s is associated with the following Metasploit Module: %s - %s\n\n" % (cve_hit, match2, match)
+					print ("%s is associated with the following Metasploit Module: %s - %s\n\n" % (cve_hit, match2, match))
 		#Snort results
 		if snort is not "null":
 			snort_sid = 'id": "sid:(.*)'
 			snort_sid_match = re.findall(snort_sid, snort)
 			for match in snort_sid_match:
-				print "%s is associated with the Snort sid:%s\n\n" % (cve_hit, match)
+				print ("%s is associated with the Snort sid:%s\n\n" % (cve_hit, match))
 		#Nmap results
 		if nmap is not "null":
 			nmap_script = '"file": "(.*)",'
 			nmap_script_match = re.findall(nmap_script, nmap)
 			for match in nmap_script_match:
-				print "%s is associated with the Nmap script: %s\n\n" % (cve_hit, match)
+				print ("%s is associated with the Nmap script: %s\n\n" % (cve_hit, match))
 
 
-#Main function 	
+#Main function
 def kw(ff, trommel_output, trommel_vfeed_output, names, bin_search):
-	
+
 	#Architecture check
 	bb_bin = '/bin/%s' % busybox_bin
 	if bb_bin in ff:
 		value = check_arch(ff, trommel_output)
 		trommel_output.write("Based on the binary 'busybox' the instruction set architecture is %s.\n" % value)
-	
+
 	#Alert for potential 3rd party software
 	if opt_dir in ff:
 		trommel_output.write("The follow file was found in the /opt (i.e. 3rd party software) directory: %s.\n" % ff)
-		
+
 	#Search for binary files of interest
 	if ssh_bin in ff:
 		trommel_output.write("Non-Plain Text File, ssh binary file: %s\n" % ff)
@@ -214,7 +215,7 @@ def kw(ff, trommel_output, trommel_vfeed_output, names, bin_search):
 	if tftp_bin in ff:
 		trommel_output.write("Non-Plain Text File, tftp binary file: %s\n" % ff)
 	if dropbear_bin in ff:
-		with open (ff, 'r') as keyword_search:
+		with codecs.open(ff, 'r', encoding='utf-8', errors='ignore') as keyword_search:
 			text = keyword_search.read()
 			drop_term = 'Dropbear server v[0-9]{4}\.[0-9]{2,3}'
 			drop_hit = re.search(drop_term, text)
@@ -226,9 +227,9 @@ def kw(ff, trommel_output, trommel_vfeed_output, names, bin_search):
 	if telnetd_bin in ff:
 		trommel_output.write("Non-Plain Text File, telnetd binary file: %s\n" % ff)
 	if openssl_bin in ff:
-		trommel_output.write("Non-Plain Text File, openssl binary file: %s\n" % ff)		
+		trommel_output.write("Non-Plain Text File, openssl binary file: %s\n" % ff)
 	if busybox_bin in ff:
-		with open (ff, 'r') as keyword_search:
+		with codecs.open(ff, 'r', encoding='utf-8', errors='ignore') as keyword_search:
 			text = keyword_search.read()
 			bb_term = 'BusyBox v[0-9]{1}\.[0-9]{1,2}\.[0-9]{1}|BusyBox v[0-9]{1}\.[0-9]{1,2}'
 			bb_hit = re.search(bb_term, text)
@@ -237,8 +238,8 @@ def kw(ff, trommel_output, trommel_vfeed_output, names, bin_search):
 		text_search(busybox_bin, trommel_vfeed_output)
 	if other_bins in ff:
 		trommel_output.write("Non-Plain Text File, .bin file: %s\n" % ff)
-	
-	
+
+
 	#Search key or password related files & keywords
 	if passwd in ff:
 		trommel_output.write("A passwd file: %s\n" % ff)
@@ -249,7 +250,7 @@ def kw(ff, trommel_output, trommel_vfeed_output, names, bin_search):
 	if key_pass in ff:
 		trommel_output.write("A keypass file: %s\n" % ff)
 	if k_wallet in ff:
-		trommel_output.write("A kwallet file: %s\n" % ff)	
+		trommel_output.write("A kwallet file: %s\n" % ff)
 	if open_vpn in ff:
 		trommel_output.write("An ovpn file: %s\n" % ff)
 	if pgp_log in ff:
@@ -290,7 +291,7 @@ def kw(ff, trommel_output, trommel_vfeed_output, names, bin_search):
 	read_search_kw(ff, id_dsa_file, trommel_output, bin_search)
 	read_search_kw(ff, host_key_file, trommel_output, bin_search)
 	read_search_kw(ff, auth_key_file, trommel_output, bin_search)
-	read_search_kw(ff, id_rsa_file, trommel_output, bin_search)	
+	read_search_kw(ff, id_rsa_file, trommel_output, bin_search)
 	read_search_kw(ff, id_ecdsa_file, trommel_output, bin_search)
 	read_search_kw(ff, id_ed25519_file, trommel_output, bin_search)
 
@@ -328,7 +329,7 @@ def kw(ff, trommel_output, trommel_vfeed_output, names, bin_search):
 	read_search_kw(ff, rsa_key_pair, trommel_output, bin_search)
 	read_search_kw(ff, secretkey_kw, trommel_output, bin_search)
 	read_search_kw(ff, ssh_hot_keys, trommel_output, bin_search)
-	
+
 	read_search_kw(ff, username_kw, trommel_output, bin_search)
 	read_search_kw(ff, secret_kw, trommel_output, bin_search)
 	read_search_kw(ff, shell_kw, trommel_output, bin_search)
@@ -336,7 +337,7 @@ def kw(ff, trommel_output, trommel_vfeed_output, names, bin_search):
 
 	#Search for keywords "private key", IP addresses, URLs, and email addresses
 	try:
-		with open (ff, 'r') as privkey_keyword:
+		with codecs.open(ff, 'r', encoding='utf-8', errors='ignore') as privkey_keyword:
 			text = privkey_keyword.read()
 			hits = re.findall(private_key_kw, text, re.I)
 			if hits:
@@ -354,7 +355,7 @@ def kw(ff, trommel_output, trommel_vfeed_output, names, bin_search):
 		pass
 
 	try:
-		with open (ff, 'r') as ipaddr_keyword:
+		with codecs.open(ff, 'r', encoding='utf-8', errors='ignore') as ipaddr_keyword:
 			text = ipaddr_keyword.read()
 			hits = re.findall(ipaddr, text, re.S)
 			if hits:
@@ -373,7 +374,7 @@ def kw(ff, trommel_output, trommel_vfeed_output, names, bin_search):
 		pass
 
 	try:
-		with open (ff, 'r') as url_keyword:
+		with codecs.open(ff, 'r', encoding='utf-8', errors='ignore') as url_keyword:
 			text = url_keyword.read()
 			hits = re.findall(urls, text, re.S)
 			for h in hits:
@@ -391,7 +392,7 @@ def kw(ff, trommel_output, trommel_vfeed_output, names, bin_search):
 		pass
 
 	try:
-		with open (ff, 'r') as email_addr:
+		with codecs.open(ff, 'r', encoding='utf-8', errors='ignore') as email_addr:
 			text = email_addr.read()
 			hits = re.findall(email, text, re.S)
 			for h in hits:
@@ -406,7 +407,7 @@ def kw(ff, trommel_output, trommel_vfeed_output, names, bin_search):
 		pass
 
 	try:
-		with open (ff, 'r') as seckey_keyword:
+		with codecs.open(ff, 'r', encoding='utf-8', errors='ignore') as seckey_keyword:
 			text = seckey_keyword.read()
 			hits = re.findall(secret_key_kw, text, re.I)
 			if hits:
@@ -438,19 +439,19 @@ def kw(ff, trommel_output, trommel_vfeed_output, names, bin_search):
 	#Search for web server binaries - apache, lighttpd, alphapd, httpd
 	if apache_bin in ff:
 		trommel_output.write("Non-Plain Text File, Apache binary file: %s\n" % ff)
-		
+
 	if lighttpd_bin in ff:
-		with open (ff, 'r') as keyword_search:
+		with codecs.open(ff, 'r', encoding='utf-8', errors='ignore') as keyword_search:
 			text = keyword_search.read()
 			lt_term = 'lighttpd/[0-9]{1}\.[0-9]{1,2}\.[0-9]{1,2}'
 			lt_hit = re.search(lt_term, text)
 			if lt_hit:
 				trommel_output.write("The lighttpd binary found is %s\n" % lt_hit.group())
 		text_search(lighttpd_bin, trommel_output)
-		
+
 	if alphapd_bin in ff:
 		text_search(alphapd_bin, trommel_output)
-		
+
 	if httpd_bin in ff:
 		trommel_output.write("Non-Plain Text File, httpd binary file: %s\n" % ff)
 
@@ -462,7 +463,7 @@ def kw(ff, trommel_output, trommel_vfeed_output, names, bin_search):
 			trommel_output.write("Non-Plain Text File, A configuration file (.conf), File: %s\n" % (ff))
 		else:
 			trommel_output.write("Plain Text File, A configuration file (.conf), File: %s\n" % (ff))
-		
+
 	if config_2 in ff:
 		magic_mime = magic.from_file(ff, mime=True)
 		magic_hit = re.search(mime_kw, magic_mime, re.I)
@@ -470,8 +471,8 @@ def kw(ff, trommel_output, trommel_vfeed_output, names, bin_search):
 			trommel_output.write("Non-Plain Text File, A configuration file (.cfg), File: %s\n" % (ff))
 		else:
 			trommel_output.write("Plain Text File, A configuration file (.cfg), File: %s\n" % (ff))
-				
-		
+
+
 	if config_3 in ff:
 		magic_mime = magic.from_file(ff, mime=True)
 		magic_hit = re.search(mime_kw, magic_mime, re.I)
@@ -479,7 +480,7 @@ def kw(ff, trommel_output, trommel_vfeed_output, names, bin_search):
 			trommel_output.write("Non-Plain Text File, A configuration file (.ini), File: %s\n" % (ff))
 		else:
 			trommel_output.write("Plain Text File, A configuration file (.ini), File: %s\n" % (ff))
-			
+
 		trommel_output.write("A .ini configuration file: %s\n" % ff)
 
 	#Search for database files with these extensions *.db and *.sqlite
@@ -490,7 +491,7 @@ def kw(ff, trommel_output, trommel_vfeed_output, names, bin_search):
 			trommel_output.write("Non-Plain Text File, A database file (.db), File: %s\n" % (ff))
 		else:
 			trommel_output.write("Plain Text File,  A database file (.db), File: %s\n" % (ff))
-	
+
 	if sqlite_file in ff:
 		magic_mime = magic.from_file(ff, mime=True)
 		magic_hit = re.search(mime_kw, magic_mime, re.I)
@@ -498,7 +499,7 @@ def kw(ff, trommel_output, trommel_vfeed_output, names, bin_search):
 			trommel_output.write("Non-Plain Text File, A database file (.sqlite), File: %s\n" % (ff))
 		else:
 			trommel_output.write("Plain Text File,  A database file (.sqlite), File: %s\n" % (ff))
-		
+
 	if sql_file in ff:
 		magic_mime = magic.from_file(ff, mime=True)
 		magic_hit = re.search(mime_kw, magic_mime, re.I)
@@ -506,9 +507,9 @@ def kw(ff, trommel_output, trommel_vfeed_output, names, bin_search):
 			trommel_output.write("Non-Plain Text File, A database file (.sql), File: %s\n" % (ff))
 		else:
 			trommel_output.write("Plain Text File,  A database file (.sql), File: %s\n" % (ff))
-		
 
-		
+
+
 
 
 	#WebApp specific - PHP, Javascript, VBScript, Lua
@@ -519,7 +520,7 @@ def kw(ff, trommel_output, trommel_vfeed_output, names, bin_search):
 		read_search_case_kw(ff, php_post_func, trommel_output, bin_search)
 		read_search_case_kw(ff, php_request_func, trommel_output, bin_search)
 		read_search_case_kw(ff, php_files_func, trommel_output, bin_search)
-		read_search_case_kw(ff, php_cookie_func, trommel_output, bin_search)	
+		read_search_case_kw(ff, php_cookie_func, trommel_output, bin_search)
 		read_search_case_kw(ff, php_split_kw, trommel_output, bin_search)
 
 		#PHP SQL related results
@@ -535,7 +536,7 @@ def kw(ff, trommel_output, trommel_vfeed_output, names, bin_search):
 
 	#Javascript	functions of interest
 	try:
-		with open (ff, 'r') as js_file:
+		with codecs.open(ff, 'r', encoding='utf-8', errors='ignore') as js_file:
 			text = js_file.read()
 			hits = re.findall(script_word, text, re.S)
 			if hits:
@@ -598,9 +599,9 @@ def kw(ff, trommel_output, trommel_vfeed_output, names, bin_search):
 
 
 	#Search specific content related decompress and decompiled Android APKs
-	#APK App permisssion					
+	#APK App permisssion
 	try:
-		with open (ff, 'r') as file:
+		with codecs.open(ff, 'r', encoding='utf-8', errors='ignore') as file:
 			text = file.read()
 			hits = re.findall(perm, text, re.S)
 			for h in hits:
@@ -610,7 +611,7 @@ def kw(ff, trommel_output, trommel_vfeed_output, names, bin_search):
 
 	#APK App package name
 	try:
-		with open (ff, 'r') as file:
+		with codecs.open(ff, 'r', encoding='utf-8', errors='ignore') as file:
 			text = file.read()
 			hits = re.findall(pkg_name, text, re.S)
 			for h in hits:
