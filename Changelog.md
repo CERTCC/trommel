@@ -3,7 +3,9 @@ All notable changes to this project will be documented in this file.
 
 ## 2018-11-30
 ### Changed
-- Updated code to make it compatible with Python3 
+- Updated code to make it compatible with Python3
+### Added
+  - Added identification of cgi scripts
 
 ## 2018-08-03
 ### Added
