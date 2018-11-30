@@ -311,6 +311,8 @@ def kw(ff, trommel_output, trommel_vfeed_output, names, bin_search):
 	if p15 in ff:
 		trommel_output.write("A SSL related .p15 file: %s\n" % ff)
 
+	if cgi_file in ff:
+		trommel_output.write("A cgi file was found: %s\n" % ff)
 
 	#Search for keyword of interest within files
 	read_search_kw(ff, upgrade_kw, trommel_output, bin_search)

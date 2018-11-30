@@ -12,7 +12,7 @@ def check_arch(ff, trommel_output):
 				if byte[5] == b'\x01' and byte[18] == key:
 					return value
 				else:
-					if byte[5] == b'\x02' and byte[19] == key: 
+					if byte[5] == b'\x02' and byte[19] == key:
 						return value
 
 opt_dir = '/opt/'
@@ -24,9 +24,9 @@ key_pass = "kdb"
 k_wallet = "kwallet"
 open_vpn = "ovpn"
 pgp_log = "pgplog"
-pgp_policy = "pgppolicy.xml" 
-pgp_prefs = "pgpprefs.xml" 
-priv_kw = "private" 
+pgp_policy = "pgppolicy.xml"
+pgp_prefs = "pgpprefs.xml"
+priv_kw = "private"
 secret_kw = "secret"
 javaks = ".jks"
 sftpconfig = "sftp-config"
@@ -35,9 +35,9 @@ pwd_safe = ".psafe3"
 
 auth_key_file = 'authorized_keys'
 host_key_file = "host_key"
-id_rsa_file = 'id_rsa' 
+id_rsa_file = 'id_rsa'
 id_dsa_file = 'id_dsa'
-dotPub = ".pub" 
+dotPub = ".pub"
 id_ecdsa_file = "id_ecdsa"
 id_ed25519_file="id_ed25519"
 
@@ -48,6 +48,8 @@ p7b = '.p7b'
 p12 = '.p12'
 dotKey = ".key"
 p15 =".p15"
+
+cgi_file = ".cgi"
 
 upgrade_kw = "upgrade"
 admin_kw = "admin"
@@ -70,13 +72,12 @@ username_kw = "username"
 secret_kw = "secret"
 shell_kw = "shell"
 
-
 mime_kw = 'x-executable|x-sharedlib|octet-stream|x-object|x-pie-executable'
 
 private_key_kw = "private.*key"
 ipaddr = '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
 urls = "(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,8}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,8}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,8}|www\.[a-zA-Z0-9]\.[^\s]{2,8})"
-email = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"				
+email = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
 secret_key_kw = "secret.*key"
 
 shell_script = ".sh"
