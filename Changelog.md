@@ -1,12 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2018-11-30
+### Changed
+- Updated code to make it compatible with Python3 
+
 ## 2018-08-03
-### Added 
+### Added
 - Added one-off specialized search option of vFeed based off text_search function.
 
 ## 2018-08-01
-### Added 
+### Added
 - Added more mime type options
 
 ## 2018-08-01
@@ -14,7 +18,7 @@ All notable changes to this project will be documented in this file.
 - Hashed each file in supplied directory and saved to its own results file
 
 ### Changed
-- Updated output formatting 
+- Updated output formatting
 
 ## 2018-07-23
 ### Changed
@@ -33,7 +37,7 @@ All notable changes to this project will be documented in this file.
 - Updated indicators.py & indicator_config.py to include print off files in /opt directory
 
 ## 2018-04-20
-### Changed 
+### Changed
 - Updated trommel.py to include a check for vFeed database. If doesn't exist, program exits.
 
 ## 2018-03-23
@@ -55,7 +59,7 @@ All notable changes to this project will be documented in this file.
 
 ## 2018-02-25
 ### Changed
-- Added a instruction set architecture check based on the byte offsets in ELF executable. Currently, just checks Busybox binary. 
+- Added a instruction set architecture check based on the byte offsets in ELF executable. Currently, just checks Busybox binary.
 
 ## 2018-01-26
 ### Changed
@@ -63,11 +67,11 @@ All notable changes to this project will be documented in this file.
 
 ## 2017-12-21
 ### Added
-- Created this Changelog.md file. 
+- Created this Changelog.md file.
 
 ## 2017-12-20
 ### Changed
-- Updated indicators.py to include byte offsets for (most) indicator hits in non-plain text files. 
+- Updated indicators.py to include byte offsets for (most) indicator hits in non-plain text files.
 
 ## 2017-12-08
 ### Changed
@@ -92,4 +96,3 @@ All notable changes to this project will be documented in this file.
 ## 2017-10-19
 ### Added
 - TROMMEL was uploaded to GitHub.
-
