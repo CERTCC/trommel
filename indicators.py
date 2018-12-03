@@ -197,8 +197,7 @@ def kw(ff, trommel_output, trommel_vfeed_output, names, bin_search):
 	bb_bin = '/bin/%s' % busybox_bin
 	if bb_bin in ff:
 		value = check_arch(ff, trommel_output)
-		if value != None:
-			trommel_output.write("Based on the binary 'busybox' the instruction set architecture is %s.\n" % value)
+		trommel_output.write("Based on the binary 'busybox' the instruction set architecture is %s.\n" % value)
 
 	#Alert for potential 3rd party software
 	if opt_dir in ff:
