@@ -450,10 +450,10 @@ def kw(ff, trommel_output, trommel_vfeed_output, names, bin_search):
 			lt_hit = re.search(lt_term, text)
 			if lt_hit:
 				trommel_output.write("The lighttpd binary found is %s\n" % lt_hit.group())
-		text_search(lighttpd_bin, trommel_output)
+		text_search(lighttpd_bin, trommel_vfeed_output)
 
 	if alphapd_bin in ff:
-		text_search(alphapd_bin, trommel_output)
+		text_search(alphapd_bin, trommel_vfeed_output)
 
 	if httpd_bin in ff:
 		trommel_output.write("Non-Plain Text File, httpd binary file: %s\n" % ff)
