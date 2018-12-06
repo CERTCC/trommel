@@ -336,6 +336,9 @@ def kw(ff, trommel_output, trommel_vfeed_output, names, bin_search):
 	read_search_kw(ff, secret_kw, trommel_output, bin_search)
 	read_search_kw(ff, shell_kw, trommel_output, bin_search)
 
+	read_search_kw(ff, port_kw, trommel_output, bin_search)
+
+
 
 	#Search for keywords "private key", IP addresses, URLs, and email addresses
 	try:

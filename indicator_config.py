@@ -69,6 +69,8 @@ username_kw = "username"
 secret_kw = "secret"
 shell_kw = "shell"
 
+port_kw = "^port"
+
 mime_kw = 'x-executable|x-sharedlib|octet-stream|x-object|x-pie-executable'
 
 private_key_kw = "private.*key"
