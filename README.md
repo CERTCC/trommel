@@ -17,13 +17,11 @@ TROMMEL identifies the following indicators related to:
 * web application scripting variables, and
 * Android application package (APK) file permissions.
 
-TROMMEL has also integrated [vFeed](https://vfeed.io/) which allows for further in-depth vulnerability analysis of identified indicators. <br />
-
+TROMMEL has also integrated [vFeed](https://vfeed.io/) which allows for further in-depth vulnerability analysis of identified indicators to enrich the output. <br />
 
 ## Dependencies
 * [Python-Magic](https://pypi.python.org/pypi/python-magic) - See documentation for instructions for Python3-magic installation
 * [vFeed Database](https://vfeed.io/pricing/) - For non-commercial use, register and download the Community Edition database
-
 
 # Usage
 ```
@@ -39,10 +37,10 @@ $ trommel.py -p /directory -o output_file -b
 ```
 
 ## Notes
-* The intended use of TROMMEL is to assist researchers during firmware analysis.
+* The intended to assist researchers during firmware analysis to find potential vulnerabilities
+* Network defenders can benefit as well to assess devices on their network or for devices they plan to add to their network
+* Devices can include IoT (web cams, smart devices (light bulbs, plugs, switches, TVs, fridge, coffee maker, etc.)), SCADA/ICS, routers, really anything with an embedded flash chip that boots an OS on startup.
 * TROMMEL has been tested using Python3 on Kali Linux x86_64.
-* TROMMEL was written with the intent to help with identifying indicators that may contain vulnerabilities found in firmware of embedded devices.
-
 
 ## References
 
@@ -51,4 +49,4 @@ $ trommel.py -p /directory -o output_file -b
 * [Lua Code: Security Overview and Practical Approaches to Static Analysis by Andrei Costin](http://firmware.re/lua/)
 
 ## Author
-* Kyle O'Meara - komeara AT cert DOT org
+* Kyle O'Meara - komeara AT cert DOT org and @cool_breeze26
