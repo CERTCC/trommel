@@ -13,8 +13,12 @@
 	* shared object library files
 	* web application scripting variables
 	* Android application package (APK) file permissions
+
 * TROMMEL integrates vFeed, which is a database wrapper that pulls in content from Common Vulnerabilities and Exposures (CVE) database and the intersection with Exploit-DB, Metasploit, Snort, and Nmap. vFeed offers a free, downloadable Community Database for non-commercial users. This integration allows for further in-depth vulnerability analysis of identified indicators to enrich the output.
+
 * TROMMEL significantly lessens the manual analysis time of the researcher by automating much of the vulnerability discovery and analysis process.
+
+#TROMMEL Output
 * Upon execution, TROMMEL provides the following feedback to the researcher in the terminal and writes 3 (CSV parsable) results files:
 	* Results will be saved to User-Supplied-File-Name_Trommel_YYYYMMDD_HHMMSS.
 	* vFeed results will be saved to User-Supplied-File-Name_TROMMEL_vFeed_Results_YYYYMMDD_HHMMSS.
