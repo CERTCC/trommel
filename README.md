@@ -1,5 +1,7 @@
 # TROMMEL
 
+# MAJOR UPDATES Coming Soon!!! Please Be Patient While We Improve TROMMEL!!
+
 TROMMEL sifts through embedded device files to identify potential vulnerable indicators. <br />
 
 TROMMEL identifies the following indicators related to:
@@ -17,11 +19,8 @@ TROMMEL identifies the following indicators related to:
 * web application scripting variables, and
 * Android application package (APK) file permissions.
 
-TROMMEL has also integrated [vFeed](https://vfeed.io/) which allows for further in-depth vulnerability analysis of identified indicators to enrich the output. <br />
-
 ## Dependencies
 * [Python-Magic](https://pypi.python.org/pypi/python-magic) - See documentation for instructions for Python3-magic installation
-* [vFeed Database](https://vfeed.io/pricing/) - For non-commercial use, register and download the Community Edition database
 
 # Usage
 ```
@@ -43,8 +42,6 @@ $ trommel.py -p /directory -o output_file -b
 * TROMMEL has been tested using Python3 on Kali Linux x86_64.
 
 ## References
-
-* [vFeed](https://vfeed.io/)
 * [Firmwalker](https://github.com/craigz28/firmwalker)
 * [Lua Code: Security Overview and Practical Approaches to Static Analysis by Andrei Costin](http://firmware.re/lua/)
 
