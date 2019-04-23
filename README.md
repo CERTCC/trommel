@@ -1,6 +1,6 @@
 # TROMMEL
 
-## MAJOR UPDATES Coming Soon!!! Please Be Patient While We Improve TROMMEL!!
+## MAJOR UPDATES Coming Soon!!! 
 
 TROMMEL sifts through embedded device files to identify potential vulnerable indicators. <br />
 
