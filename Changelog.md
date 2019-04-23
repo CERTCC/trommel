@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## 2019-04-23
 ### Changed
 - Removed vFeed db dependency. Updated documentation for this change.
+- Updated License
 
 ## 2018-12-06
 ### Changed
