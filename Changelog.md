@@ -1,9 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2019-04-23
+### Changed
+- Removed vFeed db dependency. Updated documentation for this change.
+
 ## 2018-12-06
 ### Changed
-- Added additional indicators and updated README and Documentation 
+- Added additional indicators and updated README and Documentation
 
 ## 2018-11-30
 ### Changed

@@ -20,7 +20,7 @@
 * Upon execution, TROMMEL provides the following feedback to the researcher in the terminal and writes 2 (CSV parsable) results files:
 	* Results will be saved to User-Supplied-File-Name_Trommel_YYYYMMDD_HHMMSS.
 	* Hashes of files will be saved to User-Supplied-File-Name_TROMMEL_Hash_Results_YYYYMMDD_HHMMSS.
-* Checks the architecture of the BusyBox binary.
+* Checks the system architecture by using the BusyBox binary.
 * The text file is named according to the above naming convention and will contain the following information preceding the identified indicators:
 	* TROMMEL Results File Name: [Researcher Supplied File Name]
 	* Directory: [Researcher Supplied Directory]
