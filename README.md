@@ -1,7 +1,5 @@
 # TROMMEL
 
-## MAJOR UPDATES Coming Soon!!! 
-
 TROMMEL sifts through embedded device files to identify potential vulnerable indicators. <br />
 
 TROMMEL identifies the following indicators related to:
@@ -23,22 +21,19 @@ TROMMEL identifies the following indicators related to:
 * [Python-Magic](https://pypi.python.org/pypi/python-magic) - See documentation for instructions for Python3-magic installation
 
 # Usage
+TROMMEL help menu.
 ```
 $ trommel.py --help
 ```
-Output TROMMEL results to a file based on a given directory. By default, only searches plain text files.
+Output TROMMEL results to a specific file and a specific directory based on a given root file system directory.
 ```
-$ trommel.py -p /directory -o output_file
-```
-Output TROMMEL results to a file based on a given directory. Search both binary and plain text files.
-```
-$ trommel.py -p /directory -o output_file -b
+$ trommel.py -p <root file system directory> -o results_output_file -d <directory to save results output file>
 ```
 
 ## Notes
-* The intended to assist researchers during firmware analysis to find potential vulnerabilities
-* Network defenders can benefit as well to assess devices on their network or for devices they plan to add to their network
-* Devices can include IoT (web cams, smart devices (light bulbs, plugs, switches, TVs, fridge, coffee maker, etc.)), SCADA/ICS, routers, really anything with an embedded flash chip that boots an OS on startup.
+* Red Team point of view: researchers during firmware analysis to find potential vulnerabilities
+* Blue Team point of view: Network defenders can benefit as well to assess devices on their network or for devices they plan to add to their network
+* Devices can include IoT (web cams, smart devices (light bulbs, plugs, switches, TVs, fridge, coffee maker, etc.)), SCADA/ICS, routers, really anything with an embedded flash chip that boots an OS (or like an OS) on startup.
 * TROMMEL has been tested using Python3 on Kali Linux x86_64.
 
 ## References
@@ -46,4 +41,4 @@ $ trommel.py -p /directory -o output_file -b
 * [Lua Code: Security Overview and Practical Approaches to Static Analysis by Andrei Costin](http://firmware.re/lua/)
 
 ## Author
-* Kyle O'Meara - komeara AT cert DOT org and @cool_breeze26
+* Kyle O'Meara - Contact: komeara AT cert DOT org, via Twitter @cool_breeze26, or submit an [Issue](https://github.com/CERTCC/trommel/issues)

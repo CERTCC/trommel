@@ -31,8 +31,9 @@
 # Handling Dependencies
 * Download TROMMEL
 * Python3-magic
-	* For Linux:
-		* apt-get install python3-magic
+	* For Linux: apt-get install python3-magic
+* Pyfiglet
+	* For linux: pip3 install pyfiglet
 
 # Usage
 ```
@@ -46,12 +47,8 @@ Output TROMMEL results to a file based on a given directory. Search both binary 
 ```
 $ trommel.py -p /extracted_firmware_directory -o output_file -d output_file_dir -b
 ```
-One-off text search of directory
-```
-$ trommel.py -p /extracted_firmware_directory -s user_search_term
-```
 
 # Suggested usage:
 * Steps:
 	* Once TROMMEL is installed, down a firmware binary, extract the contents of the firmware binary to expose the files/file system using [binwalk](https://github.com/devttys0/binwalk) or something similar.
-	* Run TROMMEL on the extracted firmware file system directory
+	* Run TROMMEL on the extracted firmware root file system directory

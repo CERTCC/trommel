@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+#2019-08-02
+### Changed
+- Added dependency of Pyfiglet for banner printing
+- Removed one-off search capability. If you want new search items create an issue to have me add it to the config
+### Added
+- Added parsing of passwd files to highlight users with shell access
+
 ## 2019-04-23
 ### Changed
 - Removed vFeed db dependency. Updated documentation for this change.
