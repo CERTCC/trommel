@@ -138,6 +138,7 @@ loc_assign_kw = "location.assign"
 nav_referrer_kw = "navigation.referrer"
 win_name_kw = "window.name"
 script_word = "script"
+debug_kw = "debug"
 
 vbscript_kw = "vbscript"
 
