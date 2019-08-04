@@ -112,7 +112,7 @@ def kw(ff, trommel_output, names):
 			user_term = '.*/bin/sh'
 			sh_user_hit = re.finditer(user_term, text)
 			for m in sh_user_hit:
-				trommel_output.write("Users with shell access: [%s] in this passwd file: %s\n" %(m.group(),ff))
+				trommel_output.write("Users with shell access, [%s] in this passwd file, %s\n" %(m.group(),ff))
 	if shadow in ff:
 		trommel_output.write("A shadow file: %s\n" % ff)
 	if psk_hits in ff:

@@ -36,16 +36,13 @@
 	* For linux: pip3 install pyfiglet
 
 # Usage
+TROMMEL Help Menu
 ```
 $ trommel.py --help
 ```
-Output TROMMEL results to a file based on a given directory. By default, only searches plain text files.
+Output TROMMEL results to a specific file and a specific directory based on a given root file system directory.
 ```
-$ trommel.py -p /extracted_firmware_directory -o output_file -d output_file_dir
-```
-Output TROMMEL results to a file based on a given directory. Search both binary and plain text files.
-```
-$ trommel.py -p /extracted_firmware_directory -o output_file -d output_file_dir -b
+$ trommel.py -p <root file system directory> -o results_output_file -d <directory to save results output file>
 ```
 
 # Suggested usage:
