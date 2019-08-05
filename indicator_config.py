@@ -73,6 +73,8 @@ port_kw = "^port"
 
 mime_kw = 'x-executable|x-sharedlib|octet-stream|x-object|x-pie-executable'
 
+debug_kw = "debug"
+
 private_key_kw = "private.*key"
 ipaddr = '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
 urls = "(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,8}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,8}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]\.[^\s]{2,8}|www\.[a-zA-Z0-9]\.[^\s]{2,8})"
@@ -138,7 +140,7 @@ loc_assign_kw = "location.assign"
 nav_referrer_kw = "navigation.referrer"
 win_name_kw = "window.name"
 script_word = "script"
-debug_kw = "debug"
+
 
 vbscript_kw = "vbscript"
 

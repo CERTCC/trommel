@@ -19,7 +19,7 @@ def read_search_kw(ff, keyword, trommel_output):
 					offset_list = []
 					for m in re.finditer(keyword, text, re.I):
 						offset_list.append(m.start())
-					trommel_output.write("Non-Plain Text File, Keyword: '%s', File: %s, Offset(s) in File: " % (keyword, ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
+					trommel_output.write("Non-Plain Text File, Keyword: '%s', File: %s, Offset(s) in File: \n" % (keyword, ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
 				else:
 					trommel_output.write("Plain Text File, Keyword: '%s', File: %s, Keyword Hits in File: %d\n" % (keyword, ff, len(hits)))
 	except IOError:
@@ -38,7 +38,7 @@ def read_search_case_kw(ff, keyword, trommel_output):
 					offset_list = []
 					for m in re.finditer(keyword, text):
 						offset_list.append(m.start())
-					trommel_output.write("Non-Plain Text File, Keyword: '%s', File: %s, Offset(s) in File: " % (keyword, ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
+					trommel_output.write("Non-Plain Text File, Keyword: '%s', File: %s, Offset(s) in File: \n" % (keyword, ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
 				else:
 					trommel_output.write("Plain Text File, Keyword: '%s', File: %s, Keyword Hits in File: %d\n" % (keyword, ff, len(hits)))
 	except IOError:
@@ -59,9 +59,7 @@ def read_search_lua_kw(ff, keyword, trommel_output):
 #Main function
 def kw(ff, trommel_output, names):
 
-	#Architecture check
-	bb_bin = '/bin/%s' % busybox_bin
-	if bb_bin in ff:
+	if busybox_bin in ff:
 		value = check_arch(ff, trommel_output)
 		if value != None:
 			trommel_output.write("Based on the binary 'busybox' the instruction set architecture is %s.\n" % value)
@@ -218,7 +216,7 @@ def kw(ff, trommel_output, names):
 					offset_list = []
 					for m in re.finditer(private_key_kw, text, re.I):
 						offset_list.append(m.start())
-					trommel_output.write("Non-Plain Text File, Keyword Variation: 'private key', File: %s, Offset(s) in File: " % (ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
+					trommel_output.write("Non-Plain Text File, Keyword Variation: 'private key', File: %s, Offset(s) in File: \n" % (ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
 				else:
 					trommel_output.write("Plain Text File, Keyword Variation: 'private key', File: %s, Keyword Hits in File: %d\n" % (ff, len(hits)))
 	except IOError:
@@ -235,7 +233,7 @@ def kw(ff, trommel_output, names):
 					offset_list = []
 					for m in re.finditer(ipaddr, text, re.S):
 						offset_list.append(m.start())
-					trommel_output.write("Non-Plain Text File, Keyword IP Address: '%s', File: %s, Offset(s) in File: " % (m.group(0), ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
+					trommel_output.write("Non-Plain Text File, Keyword IP Address: '%s', File: %s, Offset(s) in File: \n" % (m.group(0), ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
 				else:
 					for h in hits:
 						trommel_output.write("Plain Text File, Keyword IP Address: %s, File: %s\n" % (h, ff))
@@ -253,7 +251,7 @@ def kw(ff, trommel_output, names):
 					offset_list = []
 					for m in re.finditer(urls, text, re.S):
 						offset_list.append(m.start())
-					trommel_output.write("Non-Plain Text File, Keyword URL: '%s', File: %s, Offset(s) in File: " % (h, ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
+					trommel_output.write("Non-Plain Text File, Keyword URL: '%s', File: %s, Offset(s) in File: \n" % (h, ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
 				else:
 					trommel_output.write("Plain Text File, Keyword URL: %s, File: %s\n" % (h, ff))
 	except IOError:
@@ -267,7 +265,7 @@ def kw(ff, trommel_output, names):
 				magic_mime = magic.from_file(ff, mime=True)
 				magic_hit = re.search(mime_kw, magic_mime, re.I)
 				if magic_hit:
-					trommel_output.write("Plain/Non-Plain Text File, Keyword Email Address: '%s', File: %s" % (h, ff))
+					trommel_output.write("Plain/Non-Plain Text File, Keyword Email Address: '%s', File: %s\n" % (h, ff))
 	except IOError:
 		pass
 
@@ -282,7 +280,7 @@ def kw(ff, trommel_output, names):
 					offset_list = []
 					for m in re.finditer(secret_key_kw, text, re.I):
 						offset_list.append(m.start())
-					trommel_output.write("Non-Plain Text File, Keyword Variation: 'secret key', File: %s, Offset(s) in File: " % (ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
+					trommel_output.write("Non-Plain Text File, Keyword Variation: 'secret key', File: %s, Offset(s) in File: \n" % (ff) + ", ".join('0x%x'%x for x in offset_list) + "\n")
 				else:
 					trommel_output.write("Plain Text File, Keyword Variation: 'secret key', File: %s, Keyword Hits in File: %d\n" % (ff, len(hits)))
 	except IOError:

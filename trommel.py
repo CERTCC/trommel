@@ -58,9 +58,8 @@ def main():
 		for names in files:
 			ff = os.path.join(root,names)
 
-			#bb_bin = '/bin/%s' % busybox_bin
 			if busybox_bin in ff:
-				value = indicator_config.check_arch(ff, trommel_output)
+				value = check_arch(ff, trommel_output)
 				if value != None:
 					print ("Based on the binary 'busybox' the instruction set architecture is %s.\n" % value)
 
