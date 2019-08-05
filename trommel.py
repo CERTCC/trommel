@@ -63,6 +63,7 @@ def main():
 				if value != None:
 					print ("Based on the binary 'busybox' the instruction set architecture is %s.\n" % value)
 
+
 			#Ignore any symlinks
 			if not os.path.islink(ff):
 
