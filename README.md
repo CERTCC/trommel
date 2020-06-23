@@ -18,7 +18,8 @@ TROMMEL identifies the following indicators related to:
 * Android application package (APK) file permissions.
 
 ## Dependencies
-* [Python-Magic](https://pypi.python.org/pypi/python-magic) - See documentation for instructions for Python3-magic installation
+* [Python-Magic](https://pypi.python.org/pypi/python-magic)
+* [Pyfiglet](https://pypi.org/project/pyfiglet/0.7/)
 
 # Usage
 TROMMEL help menu.
