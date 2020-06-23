@@ -40,6 +40,3 @@ $ trommel.py -p <root file system directory> -o results_output_file -d <director
 ## References
 * [Firmwalker](https://github.com/craigz28/firmwalker)
 * [Lua Code: Security Overview and Practical Approaches to Static Analysis by Andrei Costin](http://firmware.re/lua/)
-
-## Author
-* Kyle O'Meara - Contact: komeara AT cert DOT org, via Twitter @cool_breeze26, or submit an [Issue](https://github.com/CERTCC/trommel/issues)
